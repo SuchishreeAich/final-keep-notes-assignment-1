@@ -37,6 +37,30 @@ export class NotesService {
     );
   }
 
+
+  fetchNotesByTitle(title: string) {
+
+    if (title !== '') {
+      const token = this.authenticationService.getBearerToken();
+      const httpOptions = {
+        headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)
+      };
+
+      const getNotesResponse = this.httpClient.get<Array<Note>>(
+        `http://localhost:7000/api/v1/notes/searchNotesByTitle/${title}`,
+        httpOptions);
+
+      getNotesResponse.subscribe(
+        (noteList) => {
+          this.notes = noteList;
+          this.notesSubject.next(this.notes);
+        }
+      );
+    } else {
+      this.fetchNotesFromServer();
+    }
+  }
+
   getNotes(): BehaviorSubject<Array<Note>> {
     return this.notesSubject;
   }
@@ -48,12 +72,13 @@ export class NotesService {
       headers: new HttpHeaders().set('Authorization', `Bearer ${bearerToken}`)
     };
 
-    const addNoteResponse = this.httpClient.post<Note>('http://localhost:7000/api/v1/notes', note,
-    httpOptions);
+    const addNoteResponse = this.httpClient.post<Note>
+      (`http://localhost:7000/api/v1/notes/${this.authenticationService.getLoginID()}`,
+      note,
+      httpOptions);
 
     return addNoteResponse.pipe(tap(response => {
-      const addedNote = response['note'];
-      this.notes.push(addedNote);
+      this.notes.push(response);
       this.notesSubject.next(this.notes);
     }));
   }
@@ -64,12 +89,69 @@ export class NotesService {
       headers: new HttpHeaders().set('Authorization', `Bearer ${bearerToken}`)
     };
 
-    const editNoteResponse = this.httpClient.put<Note>(`http://localhost:7000/api/v1/notes/${note.id}`,
-    note, httpOptions);
+    const editNoteResponse = this.httpClient.put<Note>(
+      `http://localhost:7000/api/v1/notes/updateNotes/${note.id}`,
+      note, httpOptions);
 
     return editNoteResponse.pipe(tap(response => {
-      const updatedNote = response['note'];
-      this.notes.push(updatedNote);
+      this.notes.push(response);
+      this.notesSubject.next(this.notes);
+    }));
+  }
+
+
+  deleteNote(note: Note): Observable<Note> {
+    const bearerToken = this.authenticationService.getBearerToken();
+    const httpOptions = {
+      headers: new HttpHeaders().set('Authorization', `Bearer ${bearerToken}`)
+    };
+
+    const deleteNoteResponse = this.httpClient.delete<Note>(
+      `http://localhost:7000/api/v1/notes/${note.id}`,
+      httpOptions);
+
+    return deleteNoteResponse.pipe(tap(response => {
+      this.notes = this.notes.filter(element => element.id !== response.id);
+      this.notesSubject.next(this.notes);
+    }));
+  }
+
+
+  removeFromFavourite(note: Note): Observable<Note> {
+    const bearerToken = this.authenticationService.getBearerToken();
+    const httpOptions = {
+      headers: new HttpHeaders().set('Authorization', `Bearer ${bearerToken}`)
+    };
+
+    const removeFromFavResponse = this.httpClient.put<Note>(
+      `http://localhost:7000/api/v1/notes/${note.id}/?isFavourite=false`,
+      {}, httpOptions);
+
+    return removeFromFavResponse.pipe(tap(response => {
+      this.notes.forEach(element => {
+        if (element.id === response.id) {
+          element.isFavourite = response.isFavourite;
+        }
+      });
+      this.notesSubject.next(this.notes);
+    }));
+  }
+
+  addToFavourite(note: Note): Observable<Note> {
+    const bearerToken = this.authenticationService.getBearerToken();
+    const httpOptions = {
+      headers: new HttpHeaders().set('Authorization', `Bearer ${bearerToken}`)
+    };
+    const addToFavResponse = this.httpClient.put<Note>(
+      `http://localhost:7000/api/v1/notes/${note.id}/?isFavourite=true`,
+      {}, httpOptions);
+
+    return addToFavResponse.pipe(tap(response => {
+      this.notes.forEach(element => {
+        if (element.id === response.id) {
+          element.isFavourite = response.isFavourite;
+        }
+      });
       this.notesSubject.next(this.notes);
     }));
   }

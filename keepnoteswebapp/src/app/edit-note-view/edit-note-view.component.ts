@@ -13,12 +13,17 @@ export class EditNoteViewComponent {
   note: Note;
   states: Array<string> = ['not-started', 'started', 'completed'];
   errMessage: string;
+  favButtonText: string;
 
   constructor(private notesService: NotesService,
     private matDialogRef: MatDialogRef<EditNoteViewComponent>,
     @Inject(MAT_DIALOG_DATA) private data: any) {
     const noteId = this.data['noteId'];
     this.note = this.notesService.getNoteById(noteId);
+    this.favButtonText = 'Add to Favourite';
+    if (this.note.isFavourite === true) {
+      this.favButtonText = 'Remove From Favourite';
+    }
   }
 
   onSave() {
@@ -38,5 +43,59 @@ export class EditNoteViewComponent {
       }
     );
 
+  }
+
+  onDelete() {
+
+    const deleteNoteResponse = this.notesService.deleteNote(this.note);
+
+    deleteNoteResponse.subscribe(
+      (response) => {
+        this.matDialogRef.close();
+      },
+      (err) => {
+        if (err.error) {
+          this.errMessage = err.error.message;
+        } else {
+          this.errMessage = err.message;
+        }
+      }
+    );
+  }
+
+  removeFromFavourite() {
+
+    const removeFavResponse = this.notesService.removeFromFavourite(this.note);
+
+    removeFavResponse.subscribe(
+      (response) => {
+        this.matDialogRef.close();
+      },
+      (err) => {
+        if (err.error) {
+          this.errMessage = err.error.message;
+        } else {
+          this.errMessage = err.message;
+        }
+      }
+    );
+  }
+
+  addToFavourite() {
+
+    const addFavResponse = this.notesService.addToFavourite(this.note);
+
+    addFavResponse.subscribe(
+      (response) => {
+        this.matDialogRef.close();
+      },
+      (err) => {
+        if (err.error) {
+          this.errMessage = err.error.message;
+        } else {
+          this.errMessage = err.message;
+        }
+      }
+    );
   }
 }

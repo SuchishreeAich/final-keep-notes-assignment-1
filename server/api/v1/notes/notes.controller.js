@@ -2,7 +2,6 @@ const notesService = require('./notes.service');
 
 //add notes
 const addNotes = (userId,data) => {
-    // console.log('add notes 2');
     return notesService.addNotes(userId,data);
 }
 

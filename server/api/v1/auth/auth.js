@@ -12,8 +12,6 @@ const verifyToken = (token, secret, callback) => {
 
     jwt.verify(token, secret, (error, decoded) => {
         let errMsg;
-        //console.log('verify 1', error);
-        //console.log('verify 2', decoded);
         if (error && !decoded) {
             //res.status(403).send('invalid token');            
             errMsg = 'invalid token';
@@ -26,19 +24,14 @@ const verifyToken = (token, secret, callback) => {
 
 const isAuthenticatedUser = (req, res, next) => {
 
-    console.log('inside isAuthenticatedUser');
-
     const authorizationHeader = req.get('Authorization');
     if (!authorizationHeader) {
         res.status(403).send('Not authenticated');
     }
     else {
         const token = authorizationHeader.replace('Bearer ', '');
-        console.log('token : ', token);
 
         verifyToken(token, authConfig.jwtSecret, (err, decoded) => {
-            console.log('error in verify : ', err);
-            console.log('decoded in verify : ', decoded);
 
             if (err) {
                 if (err.name && err.name === 'TokenExpiredError') {
@@ -57,10 +50,8 @@ const isAuthenticatedUser = (req, res, next) => {
             else if (decoded) {
                 //req.userId = decoded.userId;
                 if (next) {
-                    console.log('going to next : ');
                     next();
                 } else {
-                    console.log('success');
                     res.status(200).send({
                         message: 'User Autheticated',
                         isAuthenticated: true
@@ -73,19 +64,14 @@ const isAuthenticatedUser = (req, res, next) => {
 
 const isAuthenticatedUserEndPoint = (req, res, next) => {
 
-    console.log('inside isAuthenticatedUser');
-
     const authorizationHeader = req.get('Authorization');
     if (!authorizationHeader) {
         res.status(403).send('Not authenticated');
     }
     else {
         const token = authorizationHeader.replace('Bearer ', '');
-        console.log('token : ', token);
 
         verifyToken(token, authConfig.jwtSecret, (err, decoded) => {
-            console.log('error in verify : ', err);
-            console.log('decoded in verify : ', decoded);
 
             if (err) {
                 if (err.name && err.name === 'TokenExpiredError') {
@@ -102,7 +88,6 @@ const isAuthenticatedUserEndPoint = (req, res, next) => {
                 }
             }
             else if (decoded) {
-                console.log('success');
                 res.status(200).send({
                     message: 'User Autheticated',
                     isAuthenticated: true

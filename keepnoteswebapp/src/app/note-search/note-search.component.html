@@ -1,0 +1,7 @@
+<div class='note-search-panel'>
+  <div class='note-search-panel-wrapper'>
+    <input placeholder="Enter the title to search" [(ngModel)]='title' (blur)='onSearch()'>
+  </div>
+
+  <button mat-raised-button color='primary' (click)="onSearch()">Search Note</button>
+</div>

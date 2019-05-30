@@ -19,7 +19,9 @@ export class NoteViewComponent implements OnInit {
   ngOnInit() {
     const getNotesResponse = this.notesService.getNotes();
     getNotesResponse.subscribe(
-      (response) => this.notes = response,
+      (response) => {
+        this.notes = response;
+      },
       (error) => this.errMessage = error.message
     );
   }

@@ -1,9 +1,8 @@
 Notes Application (similar to Google Keep)
 Design & implement, Notes Application as a personal productivity tool for quickly taking (& saving) notes, organize notes efficiently, accessible from any device, add reminders with robust search and indexing capability, bellow are its salient features.
 
- 
 
-The application is expected to handle concurrent requests of 200 to 300 per second, with response time of each request in less than 1 to 2 millisecond
+The application is expected to handle concurrent requests of 200 to 300 per second, with response time of each request in less than 1 to 2 millisecond.
 
 Core features (mandatory to implement)
 

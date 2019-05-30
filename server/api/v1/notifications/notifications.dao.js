@@ -4,10 +4,6 @@ const uuidv1 = require('uuid/v1');
 const addNotificationsForUserId = (userId, notificationNotes) => {
     return new Promise((resolve, reject) => {
 
-        console.log('addnotifications 1', notificationNotes.notes);
-
-        console.log('addnotifications 2', notificationNotes.username);
-
         let notificationsToAdd = notificationNotes.notes.map(n => {
 
             return new notificationModule({
@@ -23,13 +19,10 @@ const addNotificationsForUserId = (userId, notificationNotes) => {
         });
 
         notificationModule.insertMany(notificationsToAdd, (error, savedNotifications) => {
-            console.log('addnotifications 3');
             if (error) {
-                console.log('addnotifications 4');
                 throw error;
             }
             else {
-                console.log('addnotifications 5');
                 resolve({
                     message: "Successfull add notification",
                     status: 201,

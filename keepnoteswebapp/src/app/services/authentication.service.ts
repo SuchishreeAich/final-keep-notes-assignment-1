@@ -8,10 +8,6 @@ export class AuthenticationService {
   constructor(private httpClient: HttpClient) { }
 
   authenticateUser(data) {
-
-    // return this.httpClient.post('http://localhost:7000/api/v1/users/login', data)
-    //   .pipe(map(response => response['token']));
-
     return this.httpClient.post('http://localhost:7000/api/v1/users/login', data);
   }
 

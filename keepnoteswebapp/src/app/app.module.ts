@@ -29,6 +29,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { RegisterComponent } from './register/register.component';
+import { NoteSearchComponent } from './note-search/note-search.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { RegisterComponent } from './register/register.component';
     NoteComponent,
     NoteTakerComponent,
     NoteViewComponent,
-    RegisterComponent
+    RegisterComponent,
+    NoteSearchComponent
   ],
   imports: [
     AppRoutingModule,

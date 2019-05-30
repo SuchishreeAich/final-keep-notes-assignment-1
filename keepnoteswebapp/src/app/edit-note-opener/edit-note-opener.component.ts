@@ -17,7 +17,7 @@ export class EditNoteOpenerComponent {
     private activatedRoute: ActivatedRoute) {
 
 
-    const noteId = +this.activatedRoute.snapshot.paramMap.get('noteId');
+    const noteId = this.activatedRoute.snapshot.paramMap.get('noteId');
 
     this.dialog.open(EditNoteViewComponent, {
       data: {

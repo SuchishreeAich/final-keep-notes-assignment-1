@@ -72,9 +72,8 @@ router.post('/',(req,res) => {
 
 //Search Notes by Title
 router.get('/searchNotesByTitle/:title',(req,res) => {  
-
+  
     let noteTitle = req.params.title;
-
     notesCtrl.searchNotesByNoteTitle(noteTitle).then((response) => {
         res.status(response.status).send(response.notes);
      }).catch((error) => {

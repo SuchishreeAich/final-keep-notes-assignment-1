@@ -121,7 +121,7 @@ const deleteNotes = (noteId) => {
 };
 
 const searchNotesByNoteTitle = (noteTitle) => {
-   
+       
     return new Promise((resolve,reject) => {
 
         let titleSearch = `'`+noteTitle+`'`;

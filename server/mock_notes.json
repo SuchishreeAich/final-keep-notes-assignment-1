@@ -1,0 +1,19 @@
+[
+    {
+        "title" : "note stream title 1 for user 1",
+        "text" : "note stream text 1 for user 1",
+        "userId" : "befd3690-6cca-11e9-90ce-6bdff7cadc8a",
+        "state" : "In-progress"
+    },
+    {
+        "title" : "note stream title 2 for user 1",
+        "text" : "note stream text 2 for user 1",
+        "userId" : "befd3690-6cca-11e9-90ce-6bdff7cadc8a",
+        "state" : "Complete"
+    },
+    {
+        "title" : "note stream title 3 for user 2",
+        "text" : "note stream text 3 for user 2",
+        "userId" : "d32742f0-6cca-11e9-90ce-6bdff7cadc8a"
+    }
+]

@@ -18,6 +18,12 @@ export class NotesService {
     this.notesSubject = new BehaviorSubject(this.notes);
   }
 
+  registerUser(data) {
+    return this.httpClient.post
+      (`http://localhost:7000/api/v1/users/register`,
+      data);
+  }
+
   fetchNotesFromServer() {
 
     const token = this.authenticationService.getBearerToken();
@@ -158,5 +164,48 @@ export class NotesService {
 
   getNoteById(noteId): Note {
     return this.notes.find((current) => current.id === noteId);
+  }
+
+
+  addToGroup(note: Note, groupId: string): Observable<Note> {
+    const bearerToken = this.authenticationService.getBearerToken();
+    const httpOptions = {
+      headers: new HttpHeaders().set('Authorization', `Bearer ${bearerToken}`)
+    };
+    const addToGroupResponse = this.httpClient.put<Note>(
+      `http://localhost:7000/api/v1/notes/addNoteToGroup/${note.id}/${groupId}`,
+      {}, httpOptions);
+
+    return addToGroupResponse.pipe(tap(response => {
+      this.notes.forEach(element => {
+        if (element.id === response.id) {
+          element.group = response.group;
+        }
+      });
+      this.notesSubject.next(this.notes);
+    }));
+  }
+
+  shareNotes(note: Note, uselist: Object) {
+    const bearerToken = this.authenticationService.getBearerToken();
+    const httpOptions = {
+      headers: new HttpHeaders().set('Authorization', `Bearer ${bearerToken}`)
+    };
+
+    // const users = this.httpClient.get(`http://localhost:7000/api/v1/users`,
+    //   httpOptions);
+
+    const shareNotesResponse = this.httpClient.put<Note>(
+      `http://localhost:7000/api/v1/notes/shareNote/${note.id}`,
+      uselist, httpOptions);
+
+    return shareNotesResponse.pipe(tap(response => {
+      this.notes.forEach(element => {
+        if (element.id === response.id) {
+          element.sharedUsers = response.sharedUsers;
+        }
+      });
+      this.notesSubject.next(this.notes);
+    }));
   }
 }

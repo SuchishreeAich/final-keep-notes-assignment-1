@@ -1,7 +1,14 @@
 <div class='note-search-panel'>
   <div class='note-search-panel-wrapper'>
     <input placeholder="Enter the title to search" [(ngModel)]='title' (blur)='onSearch()'>
+    <!-- <mat-form-field>
+        <input matInput [(ngModel)]='title' placeholder='Enter note title to Search' (blur)='onSearch()'>
+    </mat-form-field> -->
   </div>
-
-  <button mat-raised-button color='primary' (click)="onSearch()">Search Note</button>
+  <!-- <div class='note-search-panel-wrapper'>
+      <mat-form-field>
+        <textarea [(ngModel)]="title" matInput placeholder="Enter the title to search" (blur)='onSearch()'></textarea>
+      </mat-form-field>
+    </div> -->
+  <button mat-flat-button color='primary' (click)="onSearch()">Search Note</button>
 </div>

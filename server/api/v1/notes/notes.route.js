@@ -122,7 +122,6 @@ router.put('/shareNote/:noteId',(req,res) => {
     
     let noteId = req.params.noteId;
     let sharedUsersArray = req.body.sharedUsers;
-
     notesCtrl.shareNote(noteId,sharedUsersArray).then((response) => {
      res.status(response.status).send(response.note);
      }).catch((error) => {

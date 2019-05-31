@@ -1,3 +1,4 @@
+import { FormControl } from '@angular/forms';
 import { Note } from '../note';
 import { NotesService } from '../services/notes.service';
 import { Component, Inject } from '@angular/core';
@@ -98,4 +99,24 @@ export class EditNoteViewComponent {
       }
     );
   }
+
+
+  addToGroup() {
+    const addGroupResponse = this.notesService.addToGroup(this.note, this.note.group);
+
+    addGroupResponse.subscribe(
+      (response) => {
+        this.matDialogRef.close();
+      },
+      (err) => {
+        if (err.error) {
+          this.errMessage = err.error.message;
+        } else {
+          this.errMessage = err.message;
+        }
+      }
+    );
+  }
+
+
 }

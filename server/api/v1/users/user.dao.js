@@ -13,7 +13,7 @@ const loginUser = (userInfo) => {
                 reject({message : 'Login failure',status : 500});
             }
             else if(!data){
-                reject({message : 'You are not registered user',status : 403});
+                reject({message : 'You are not registered user.Please click below to register',status : 403});
             }
             else if(data.password !== userInfo.password){
                 reject({message : 'Passwords is incorrect',status : 403});

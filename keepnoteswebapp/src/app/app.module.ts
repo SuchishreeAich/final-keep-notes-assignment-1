@@ -30,6 +30,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { RegisterComponent } from './register/register.component';
 import { NoteSearchComponent } from './note-search/note-search.component';
+import { NoteShareComponent } from './note-share/note-share.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { NoteSearchComponent } from './note-search/note-search.component';
     NoteTakerComponent,
     NoteViewComponent,
     RegisterComponent,
-    NoteSearchComponent
+    NoteSearchComponent,
+    NoteShareComponent
   ],
   imports: [
     AppRoutingModule,

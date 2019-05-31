@@ -51,4 +51,8 @@ export class LoginComponent {
       );
     }
   }
+
+  register() {
+    this.routerService.routeToRegister();
+  }
 }

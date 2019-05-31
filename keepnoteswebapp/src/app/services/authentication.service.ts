@@ -44,9 +44,19 @@ export class AuthenticationService {
     };
 
     const authResponse = this.httpClient.post('http://localhost:7000/api/v1/auth', {},
-    httpOptions).pipe(map(response => response['isAuthenticated']));
+      httpOptions).pipe(map(response => response['isAuthenticated']));
 
     return authResponse.toPromise();
+
+  }
+
+  getAllRegisteredUsers() {
+
+    return this.httpClient.get<Array<Object>>(`http://localhost:7000/api/v1/users`)
+      .pipe(map(response => response.filter(user => user['userId'] !== this.getLoginID())
+        .map(user => user['username'])
+      ));
+
 
   }
 }

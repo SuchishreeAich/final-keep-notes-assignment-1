@@ -1,0 +1,8 @@
+<div>
+  <mat-form-field>
+    <mat-select name="sharedUsers" class="sharedUsers" [(ngModel)]="selectedUser" multiple>
+      <mat-option *ngFor="let sharedUser of sharedUsers" [value]="sharedUser">{{ sharedUser }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-stroked-button (click)="shareNotes()">Share to Users</button>
+</div>

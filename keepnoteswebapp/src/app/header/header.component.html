@@ -1,6 +1,18 @@
-<mat-toolbar color="primary">Keep
-	<div class="keep-c-toggle-view">
-		<i *ngIf="isNoteView" class="material-icons switchToListView" (click)="switchToListView()">view_list</i>
-		<i *ngIf="!isNoteView" class="material-icons switchToNoteView" (click)="switchToNoteView()">view_quilt</i>
-	</div>
+<mat-toolbar color="primary">
+
+	<mat-toolbar-row>
+		<span>Keep Notes</span>
+
+		<span class="example-spacer"></span>
+
+		<mat-icon *ngIf="isNoteView" class="example-icon keep-header-content" aria-hidden="false" aria-label="Note View" (click)="switchToListView()"
+		 matTooltip="Note View">List View</mat-icon>
+		<mat-icon *ngIf="!isNoteView" class="example-icon keep-header-content" aria-hidden="false" aria-label="List View" (click)="switchToNoteView()"
+		 matTooltip="List View">Note View</mat-icon>
+
+		<!-- <mat-icon class="example-icon keep-header-content" aria-hidden="false" aria-label="Example delete icon" (click)="switchToLogout()" matTooltip="Logout">logout</mat-icon> -->
+
+	</mat-toolbar-row>
+
+
 </mat-toolbar>

@@ -15,21 +15,22 @@
     <mat-select name="editStatus" placeholder="Select state" [(ngModel)]="note.state">
       <mat-option *ngFor="let state of states" [value]="state">{{ state }}</mat-option>
     </mat-select>
-    </mat-form-field>
+    </mat-form-field>    
 </div>
 <div>
-    <mat-form-field> 
-      <input [(ngModel)]="note.isFavourite" name="isFavourite" matInput placeholder="Favourite" 
-      readonly=true>
-    </mat-form-field>
-  </div>
+  <mat-form-field> 
+    <input [(ngModel)]="note.isFavourite" name="isFavourite" matInput placeholder="Favourite" 
+    readonly=true>
+  </mat-form-field>
+</div>
 <div>
   <mat-form-field>
     <input matInput class='group' name='group' [(ngModel)]="note.group">               
   </mat-form-field>
-  <button mat-button (click)="addToGroup()">Add to Group</button>
+  <button mat-stroked-button (click)="addToGroup()">Add to Group</button>
 </div>
 <app-note-share [note]='note'></app-note-share>
+<!-- add reminder component -->
 <div class="keep-c-done-wrapper">
   <button mat-stroked-button (click)="onSave()">Update Note</button>
   <button mat-stroked-button (click)="onDelete()">Delete Note</button>

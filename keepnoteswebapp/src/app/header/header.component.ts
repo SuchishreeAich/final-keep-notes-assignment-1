@@ -10,6 +10,7 @@ export class HeaderComponent {
   isNoteView = true;
 
   constructor(private routerService: RouterService) { }
+
   switchToListView() {
     this.isNoteView = false;
     this.routerService.routeToListView();

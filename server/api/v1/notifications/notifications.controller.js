@@ -1,37 +1,104 @@
-const notificationsService = require('./notifications.service');
+const svc = require('./notifications.service');
 
-//Notify users
-const addNotificationsForUserId = (userId,notificationWithNotes) => { 
-    return notificationsService.addNotificationsForUserId(userId,notificationWithNotes);
+const notifyUsers = (req, res) => {
+
+  try {
+    const userId = req.query.userId;
+    const notificationWithNotes = req.body;
+
+    svc.notifyUsers(userId, notificationWithNotes)
+      .then(response => {
+        res.status(response.status).send(response);
+      })
+      .catch(err => {
+        res.status(err.status).send(err);
+      });
+  } catch (error) {
+    res.status(error.status).send(error);
+  }
 }
 
-//Get reminders
-const getReminders = (userId) => {
-    return notificationsService.getReminders(userId);
+const getReminders = (req, res) => {
+
+  try {
+    const userId = req.query.userId;
+    svc.getReminders(userId)
+      .then(response => {
+        res.status(response.status).send(response.notifications);
+      })
+      .catch(err => {
+        res.status(err.status).send(err);
+      });
+  } catch (error) {
+    res.status(error.status).send(error);
+  }
 }
 
-//Add reminder
-const addReminder = (userId, notification) => {
-    return notificationsService.addReminder(userId,notification);
+const addReminder = (req, res) => {
+
+  try {
+    const userId = req.query.userId;
+    const notification = req.body;
+    svc.addReminder(userId, notification)
+      .then(response => {
+        res.status(response.status).send(response);
+      })
+      .catch(err => {
+        res.status(err.status).send(err);
+      });
+  } catch (error) {
+    res.status(error.status).send(error);
+  }
 }
 
-//Snooze reminder
-const snoozeReminder = (notificationId, notification) => {
-  return notificationsService.snoozeReminder(notificationId,notification);
+const snoozeReminder = (req, res) => {
+  try {
+    const notificationId = req.params.reminderId;
+    const notification = req.body;
+    svc.snoozeReminder(notificationId, notification)
+      .then(response => {
+        res.status(response.status).send(response);
+      })
+      .catch(err => {
+        res.status(err.status).send(err);
+      });
+  } catch (error) {
+    res.status(error.status).send(error);
+  }
 }
 
-//Dismiss reminder
-const dismissReminder = (notificationId) => {
-  return notificationsService.dismissReminder(notificationId);
+const dismissReminder = (req, res) => {
+  try {
+    const notificationId = req.params.reminderId;
+    svc.dismissReminder(notificationId)
+      .then(response => {
+        res.status(response.status).send(response);
+      })
+      .catch(err => {
+        res.status(err.status).send(err);
+      });
+  } catch (error) {
+    res.status(error.status).send(error);
+  }
 }
 
-//Get reminder
-const getReminder = (notificationId) => {
-  return notificationsService.getReminder(notificationId);
+const getReminder = (req, res) => {
+  try {
+    const notificationId = req.params.reminderId;
+    svc.getReminder(notificationId)
+      .then(response => {
+        res.status(response.status).send(response);
+      })
+      .catch(err => {
+        res.status(err.status).send(err);
+      });
+  } catch (error) {
+    res.status(error.status).send(error);
+  }
 }
 
 module.exports = {
-  addNotificationsForUserId,
+  notifyUsers,
   getReminders,
   addReminder,
   snoozeReminder,

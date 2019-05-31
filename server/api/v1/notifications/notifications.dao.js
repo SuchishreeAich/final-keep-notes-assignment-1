@@ -1,171 +1,206 @@
-const notificationModule = require('./notifications.entity');
+const NotificationModel = require('./notifications.entity');
 const uuidv1 = require('uuid/v1');
 
-const addNotificationsForUserId = (userId, notificationNotes) => {
-    return new Promise((resolve, reject) => {
+//Adds notification with self=false for the userID passed.
+const addNotificationsForUserID = (userId, notificationNotes) => {
+  return new Promise((resolve, reject) => {
 
-        let notificationsToAdd = notificationNotes.notes.map(n => {
+    try {
+      const notificationsToAdd = notificationNotes.notes.map(n => {
+        return new NotificationModel({
+          notificationID: uuidv1(),
+          userId: userId,
+          userName: notificationNotes.userName,
+          isReminded: false,
+          remindAt: new Date().toISOString(),
+          self: false,
+          note: n,
+          edittype: notificationNotes.edittype
+        });
+      });
 
-            return new notificationModule({
-                notificationId: uuidv1(),
-                userId: userId,
-                username: notificationNotes.username,
-                isReminded: false,
-                remindAt: new Date(),
-                self: false,
-                note: n,
-                edittype: notificationNotes.edittype
-            });
+      NotificationModel.insertMany(notificationsToAdd, (err, savedNotifications) => {
+        if (err) throw err;
+
+        resolve({
+          message: 'notifications added to share',
+          status: 201,
+          notifications: savedNotifications
         });
 
-        notificationModule.insertMany(notificationsToAdd, (error, savedNotifications) => {
-            if (error) {
-                throw error;
-            }
-            else {
-                resolve({
-                    message: "Successfull add notification",
-                    status: 201,
-                    notifications: savedNotifications
-                });
-            }
-        });
-    });
+      });
+    } catch (error) {
+      reject({ message: 'Failed to notify due to internal error', status: 500 });
+    }
+  });
 };
 
+//Adds notification with self=true for the userID passed.
 const addSelfNotifications = (userId, notification) => {
-    return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
 
-        let notificationToAdd = new notificationModule({
-            notificationID: uuidv1(),
-            userId: userId,
-            userName: notification.userName,
-            isReminded: false,
-            remindAt: notification.remindAt,
-            note: notification.note,
-            self: true,
-            edittype: notification.edittype
+    try {
+      const notificationToAdd = new NotificationModel({
+        notificationID: uuidv1(),
+        userId: userId,
+        userName: notification.userName,
+        isReminded: false,
+        remindAt: notification.remindAt,
+        note: notification.note,
+        self: true
+      });
+
+      notificationToAdd.save((err, savedNotification) => {
+        if (err) throw err;
+        resolve({
+          message: 'notification added',
+          status: 201,
+          notification: savedNotification
         });
 
-        notificationToAdd.save((error, data) => {
-
-            if (error) {
-                reject({ message: 'Internal server error', status: 500 });
-            }
-            else {
-                resolve({ message: "Successfull add notification", status: 200, notifications: data });
-            }
-        });
-    });
+      });
+    } catch (error) {
+      reject({ message: 'Failed to notify due to internal error', status: 500 });
+    }
+  });
 };
 
 const getNotificationsForSelf = (userId) => {
-    return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
 
-        notificationModule.find({ 'userId': userId }, function (err, data) {
+    try {
+      const query = {
+        userId: userId
+      };
 
-            if (err) {
-                reject({ message: 'Internal server error', status: 500 });
-            }
-            else if (!data) {
-                reject({ message: 'No notifications found for this userId', status: 200 });
-            }
-            else {
-                resolve({ message: "Successfull note fetch", status: 200, notifications: data });
-            }
+      NotificationModel.find(query, (err, notificationsInDb) => {
+        if (err) throw err;
+        const notifications = notificationsInDb.filter(n => n.self);
+
+        resolve({
+          message: 'notification found',
+          status: 200,
+          notifications: notifications
         });
 
-    });
+      });
+    } catch (error) {
+      reject({ message: 'Failed to get reminders/notifications  due to internal error', status: 500 });
+    }
+  });
 };
 
-const updateReminderForNotificationId = (notificationId, notification) => {
+const updateReminderForNotificationID = (notificationId, notification) => {
+  return new Promise((resolve, reject) => {
 
-    return new Promise((resolve, reject) => {
+    try {
+      const query = {
+        notificationID: notificationId
+      };
 
-        let updateData = {
-            remindAt: notification.remindAt,
-            isSent: false
-        }
+      const updateData = {
+        remindAt: notification.remindAt,
+        isSent: false
+      }
 
-        notificationModule.findOneAndUpdate({ 'notificationId': notificationId }, updateData,
-            { new: true }, (error, updatedNotification) => {
+      NotificationModel.findOneAndUpdate(query, updateData, { new: true }, (err, savedNotification) => {
+        if (err) throw err;
 
-                if (error) {
-                    throw error;
-                }
-                else {
-                    resolve({ message: "Successfull notification update", status: 200, notifications: updatedNotification });
-                }
-            });
-    });
-};
-
-const deleteReminderForNotificationId = (notificationId) => {
-    return new Promise((resolve, reject) => {
-
-        notificationModule.deleteOne({ 'notificationId': notificationId }, (error) => {
-
-            if (error) {
-                throw error;
-            }
-            else {
-                resolve({ message: "Successfull notification delete", status: 200 });
-            }
+        resolve({
+          message: 'reminder updated',
+          status: 200,
+          notification: savedNotification
         });
-    });
+
+      });
+    } catch (error) {
+      reject({ message: 'Failed to update due to internal error', status: 500 });
+    }
+  });
 };
 
-const markNotificationSentForNotificationId = (notificationId) => {
-    return new Promise((resolve, reject) => {
+const deleteReminderForNotificationID = (notificationId) => {
+  return new Promise((resolve, reject) => {
 
-        const updateData = {
-            isSent: true
-        };
+    try {
+      NotificationModel.deleteOne({ notificationID: notificationId }, (err) => {
+        if (err) throw err;
+        resolve({
+          message: 'reminder dismissed',
+          status: 200
+        });
 
-        notificationModule.findOneAndUpdate({ 'notificationId': notificationId },
-            updateData, { new: true }, (error, updatedNotification) => {
+      });
+    } catch (error) {
+      reject({ message: 'Failed to delete due to internal error', status: 500 });
+    }
+  });
+};
 
-                if (error) {
-                    throw error;
-                }
-                else {
-                    resolve({
-                        message: "Successfull notification update", status: 200,
-                        notifications: updatedNotification
-                    });
-                }
-            });
-    });
+const markNotificationSentForNotificationID = (notificationId) => {
+  return new Promise((resolve, reject) => {
+
+    try {
+      const query = {
+        notificationID: notificationId
+      };
+
+      const updateData = {
+        isSent: true
+      };
+
+      NotificationModel.findOneAndUpdate(query, updateData, { new: true }, (err, savedNotification) => {
+        if (err) throw err;
+
+        resolve({
+          message: 'reminder updated',
+          status: 200,
+          notification: savedNotification
+        });
+
+      });
+    } catch (error) {
+      reject({ message: 'Failed to update due to internal error', status: 500 });
+    }
+  });
 };
 
 const getAllNotificationsToProcess = (callback) => {
-    notificationModule.find()
-        .exec(callback);
+  NotificationModel.find()
+    .exec(callback);
 };
 
-const getReminderForNotificationId = (notificationId) => {
+const getReminderForNotificationID = (notificationId) => {
+  return new Promise((resolve, reject) => {
 
-    return new Promise((resolve, reject) => {
+    try {
+      const query = {
+        notificationID: notificationId
+      };
 
-        notificationModule.find({ 'notificationId': notificationId }, function (err, data) {
+      NotificationModel.find(query, (err, notifications) => {
+        if (err) throw err;
 
-            if (err) {
-                throw err;
-            }
-            else {
-                resolve({ message: "Successfull notification fetch", status: 200, notification: data });
-            }
+        resolve({
+          message: 'notification found',
+          status: 200,
+          notifications: notifications
         });
-    });
+
+      });
+    } catch (error) {
+      reject({ message: 'Failed to get reminders/notifications  due to internal error', status: 500 });
+    }
+  });
 };
 
 module.exports = {
-    addNotificationsForUserId,
-    addSelfNotifications,
-    getNotificationsForSelf,
-    updateReminderForNotificationId,
-    deleteReminderForNotificationId,
-    markNotificationSentForNotificationId,
-    getAllNotificationsToProcess,
-    getReminderForNotificationId
+  addNotificationsForUserID,
+  addSelfNotifications,
+  getNotificationsForSelf,
+  updateReminderForNotificationID,
+  deleteReminderForNotificationID,
+  markNotificationSentForNotificationID,
+  getAllNotificationsToProcess,
+  getReminderForNotificationID
 }

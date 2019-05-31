@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 let notificationsSchema = new mongoose.Schema({
-  notificationId: {
+  notificationID: {
     type: String,
     required: true
   },
@@ -9,13 +9,13 @@ let notificationsSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  username: {
+  userName: {
     type: String,
     required: true
   },
   remindAt: {
-    type: Date,
-    default: new Date(),
+    type: String,
+    default: new Date().toISOString(),
     required: true
   },
   note: {

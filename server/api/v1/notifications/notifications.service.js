@@ -1,37 +1,31 @@
 const dao = require('./notifications.dao');
 
-//Notify users
-const addNotificationsForUserId = (userId, notificationNotes) => {
-  return dao.addNotificationsForUserId(userId, notificationNotes);
+const notifyUsers = (userId, notificationNotes) => {
+  return dao.addNotificationsForUserID(userId, notificationNotes);
 };
 
-//Get reminders
 const getReminders = (userId) => {
   return dao.getNotificationsForSelf(userId);
 };
 
-//Add reminder
 const addReminder = (userId, notification) => {
   return dao.addSelfNotifications(userId, notification);
 };
 
-//Snooze reminder
 const snoozeReminder = (notificationId, notification) => {
-  return dao.updateReminderForNotificationId(notificationId, notification);
+  return dao.updateReminderForNotificationID(notificationId, notification);
 };
 
-//Dismiss reminder
 const dismissReminder = (notificationId) => {
-  return dao.deleteReminderForNotificationId(notificationId);
+  return dao.deleteReminderForNotificationID(notificationId);
 };
 
-//Get reminder
 const getReminder = (notificationId) => {
-  return dao.getReminderForNotificationId(notificationId);
+  return dao.getReminderForNotificationID(notificationId);
 }
 
 module.exports = {
-  addNotificationsForUserId,
+  notifyUsers,
   getReminders,
   addReminder,
   snoozeReminder,

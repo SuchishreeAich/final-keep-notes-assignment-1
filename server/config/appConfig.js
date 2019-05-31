@@ -1,7 +1,8 @@
 // write your application configration here
 const serverConfig = {
     port : 7000,
-    hostname : '127.0.0.1'
+    hostname : '127.0.0.1',
+    sleepDuration: 10000
 }
 
 const dbConfig = {

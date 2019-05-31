@@ -1,7 +1,12 @@
-// write your server code here
 const app = require('../app');
-const { serverConfig } = require('../config').appConfig;
+const appConfig = require('../config').appConfig;
+const socket = require('../api/v1/notifications/socket/app.socket');
+const socketClient = require('../app.client');
 
-app.listen(serverConfig.port,() => {
-   // console.log('Server is running on port : '+serverConfig.port);
-})
+const port = appConfig.serverConfig.port;
+const server = require('http').createServer(app);
+socket.setupSocket(server);
+socketClient.registerSocket();
+
+server.listen(port, () => {
+});

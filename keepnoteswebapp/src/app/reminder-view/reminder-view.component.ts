@@ -48,7 +48,7 @@ export class ReminderViewComponent implements OnInit {
     for (let i = 0; i < 24; i++) {
       this.listOfHours.push(i);
     }
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 60; i = i + 5) {
       this.listOfMinutes.push(i);
     }
     this.note = this.noteSvc.getNoteById(this.data.noteId);

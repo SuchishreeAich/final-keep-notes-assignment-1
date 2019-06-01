@@ -15,6 +15,9 @@
 
 
 .note-search-panel-text{
-
 	margin: solid;
+	border-style: solid;
+	border-width: 1.5pt;
+	border-color: purple;
+	border-radius: 0.25em;
 }

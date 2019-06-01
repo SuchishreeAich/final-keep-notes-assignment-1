@@ -1,25 +1,25 @@
 <!-- Label to display any error messages -->
 <label class="error-message">{{ errMessage }}</label>
 <div class='edit-note-container'>
-  <mat-form-field> 
+  <mat-form-field class='edit-note-element'> 
     <input [(ngModel)]="note.title" name="editTitle" matInput placeholder="Title" type="text">
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field class='edit-note-element'>
     <textarea [(ngModel)]="note.text" name="editText" matInput placeholder="Text"></textarea>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field class='edit-note-element'>
     <mat-select name="editStatus" placeholder="Select state" [(ngModel)]="note.state">
       <mat-option *ngFor="let state of states" [value]="state">{{ state }}</mat-option>
     </mat-select>
   </mat-form-field>  
-  <mat-form-field> 
+  <mat-form-field class='edit-note-element-fav'> 
     <input [(ngModel)]="note.isFavourite" name="isFavourite" matInput placeholder="Favourite" 
     readonly=true>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field class='edit-note-element'>
     <input matInput class='group' name='group' [(ngModel)]="note.group">               
   </mat-form-field>
-  <button mat-stroked-button (click)="addToGroup()">Add to Group</button>
+  <button mat-flat-button color='primary'(click)="addToGroup()">Add to Group</button>
 </div>
 <div> 
   <!-- Share note-->
@@ -28,8 +28,8 @@
 <!-- add reminder component -->
 <app-reminder-view [note]='note'></app-reminder-view>
 <div class="keep-c-done-wrapper">
-  <button mat-stroked-button (click)="onSave()">Update Note</button>
-  <button mat-stroked-button (click)="onDelete()">Delete Note</button>
-  <button mat-stroked-button *ngIf="note.isFavourite" (click)="removeFromFavourite()" >Remove from Favourite</button>
-  <button mat-stroked-button *ngIf="!note.isFavourite" (click)="addToFavourite()" >Add to Favourite</button>
+  <button mat-flat-button color='primary' class='edit-note-button-update' (click)="onSave()">Update Note</button>
+  <button mat-flat-button color='primary' class='edit-note-button' (click)="onDelete()">Delete Note</button>
+  <button mat-flat-button color='primary' *ngIf="note.isFavourite" class='edit-note-button' (click)="removeFromFavourite()" >Remove from Favourite</button>
+  <button mat-flat-button color='primary' *ngIf="!note.isFavourite" class='edit-note-button' (click)="addToFavourite()" >Add to Favourite</button>
 </div>

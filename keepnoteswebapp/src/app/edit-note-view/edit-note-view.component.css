@@ -3,5 +3,39 @@
   }
 
 .edit-note-container{
-  width: 1000vw;
+  width: 2000px;
+}
+
+.edit-note-element{
+  padding-right: 5pt;
+}
+
+.edit-note-element-fav{
+  padding-right: 5pt;
+  width: 5vw;
+}
+
+.keep-c-done-wrapper{
+  padding-top: 2vh;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
+.edit-note-button{
+  align-self:center;
+  align-content: center;
+  padding-left: 15pt;
+  padding-right: 15pt;
+  margin-left: 10pt;
+  margin-right: 10pt;
+}
+
+.edit-note-button-update{
+  align-self:center;
+  align-content: center;
+  padding-left: 15pt;
+  padding-right: 15pt;
+  margin-left: 200pt;
+  margin-right: 10pt;
 }

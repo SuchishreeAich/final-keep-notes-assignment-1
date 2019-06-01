@@ -66,6 +66,7 @@ const addSelfNotifications = (userId, notification) => {
 };
 
 const getNotificationsForSelf = (userId) => {
+  console.log('getNotificationsForSelf 1');
   return new Promise((resolve, reject) => {
 
     try {

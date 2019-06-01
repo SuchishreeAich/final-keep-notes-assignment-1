@@ -19,7 +19,6 @@ const notifyUsers = (req, res) => {
 }
 
 const getReminders = (req, res) => {
-
   try {
     const userId = req.query.userId;
     svc.getReminders(userId)

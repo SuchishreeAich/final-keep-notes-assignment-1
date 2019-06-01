@@ -34,7 +34,7 @@ export class ReminderService {
 
   fetchAllRemindersFromServer() {
     const reminderObserver = this.httpClient.get<Array<any>>
-    (`http://localhost:7000/notifications/reminders?userId=${this.userId}`,
+    (`http://localhost:7000/api/v1/notifications/reminders/?userId=${this.userId}`,
     this.getAuthHeader());
 
     reminderObserver.subscribe(response => {
@@ -59,7 +59,7 @@ export class ReminderService {
     };
 
     const reminderObserver = this.httpClient.post<any>
-    (`http://localhost:7000/notifications/?userId=${this.userId}`,
+    (`http://localhost:7000/api/v1/notifications/?userId=${this.userId}`,
     reminder, this.getAuthHeader());
 
     return reminderObserver.pipe(tap(response => {
@@ -79,7 +79,7 @@ export class ReminderService {
     };
 
     const reminderObserver = this.httpClient.post<any>
-    (`http://localhost:7000/notifications/reminders?userId=${this.userId}`,
+    (`http://localhost:7000/api/v1/notifications/reminders/?userId=${this.userId}`,
     reminder, this.getAuthHeader());
 
     return reminderObserver.pipe(tap(response => {
@@ -103,7 +103,7 @@ export class ReminderService {
     reminder.remindAt = dateRemindAt;
 
     const reminderObserver = this.httpClient.put<any>
-    (`http://localhost:7000/notifications/reminders/${reminderID}?userId=${this.userId}`,
+    (`http://localhost:7000/api/v1/notifications/reminders/${reminderID}/?userId=${this.userId}`,
     reminder, this.getAuthHeader());
     return reminderObserver.pipe(tap(response => {
 
@@ -124,7 +124,7 @@ export class ReminderService {
     const reminder = this.reminders.find(remindertemp => remindertemp.notificationID === reminderID);
 
     const reminderObserver = this.httpClient.delete<any>
-    (`http://localhost:7000/notifications/reminders/${reminder.notificationID}?userId=${this.userId}`,
+    (`http://localhost:7000/api/v1/notifications/reminders/${reminder.notificationID}/?userId=${this.userId}`,
     this.getAuthHeader());
 
     return reminderObserver.pipe(tap(response => {

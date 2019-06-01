@@ -1,3 +1,4 @@
+import { ReminderService } from './services/reminder.service';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AuthenticationService } from './services/authentication.service';
@@ -31,6 +32,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { RegisterComponent } from './register/register.component';
 import { NoteSearchComponent } from './note-search/note-search.component';
 import { NoteShareComponent } from './note-share/note-share.component';
+import { NotificationComponent } from './notification/notification.component';
+import { ReminderViewComponent } from './reminder-view/reminder-view.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { SocketService } from './services/socket.service';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import {MatDividerModule} from '@angular/material/divider';
+import { MatNativeDateModule } from '@angular/material';
+
 
 @NgModule({
   declarations: [
@@ -46,7 +55,9 @@ import { NoteShareComponent } from './note-share/note-share.component';
     NoteViewComponent,
     RegisterComponent,
     NoteSearchComponent,
-    NoteShareComponent
+    NoteShareComponent,
+    NotificationComponent,
+    ReminderViewComponent
   ],
   imports: [
     AppRoutingModule,
@@ -64,13 +75,20 @@ import { NoteShareComponent } from './note-share/note-share.component';
     MatListModule,
     MatButtonModule,
     MatDialogModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatDividerModule,
+    MatNativeDateModule
   ],
   providers: [
     AuthenticationService,
     NotesService,
     RouterService,
-    CanActivateRouteGuard
+    CanActivateRouteGuard,
+    ReminderService,
+    SocketService,
+    MatDatepickerModule
   ],
   bootstrap: [AppComponent],
   entryComponents: [EditNoteViewComponent]

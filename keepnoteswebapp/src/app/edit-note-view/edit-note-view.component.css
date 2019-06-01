@@ -1,0 +1,7 @@
+.example-spacer {
+    flex: 0.25 0.25 auto;
+  }
+
+.edit-note-container{
+  width: 1000vw;
+}

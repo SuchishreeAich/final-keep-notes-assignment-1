@@ -21,7 +21,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 50vh;
+    height: 20vh;
 }
 .login-wrapper > * {
     width: 100%;

@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import * as io from 'socket.io-client';
 import { environment } from '../../environments/environment';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 import { NotesService } from './notes.service';
+import * as io from 'socket.io-client';
+
 
 @Injectable()
 export class SocketService {

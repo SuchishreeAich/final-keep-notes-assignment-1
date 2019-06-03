@@ -63,7 +63,7 @@ export class AuthenticationService {
 
   getAllRegisteredUsers() {
 
-    return this.httpClient.get<Array<Object>>(`http://localhost:7000/users`)
+    return this.httpClient.get<Array<Object>>(`http://localhost:7000/users/`)
       .pipe(map(response => response.filter(user => user['userId'] !== this.getLoginID())
         .map(user => user['username'])
       ));

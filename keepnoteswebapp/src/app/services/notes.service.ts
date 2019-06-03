@@ -53,12 +53,11 @@ export class NotesService {
         headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)
       };
 
-      // console.log('fetchbytitle', title);
       // tslint:disable-next-line:max-line-length
-      const getNotesResponse = this.httpClient.get<Array<Note>>(`http://localhost:7000/notes/searchNotesByTitle/${title}`, httpOptions);
+      const getNotesResponse = this.httpClient.get<Array<Note>>
+      (`http://localhost:7000/notes/searchNotesByTitle/${title}`, httpOptions);
 
 
-      // console.log('fetchbytitle 2', getNotesResponse);
       getNotesResponse.subscribe(
         (noteList) => {
           this.notes = noteList;

@@ -123,26 +123,20 @@ const deleteNotes = (noteId) => {
 
 const searchNotesByNoteTitle = (noteTitle) => {
      
-    // console.log('searchdao ');
 
     return new Promise((resolve,reject) => {
 
         let titleSearch = `'`+noteTitle+`'`;
 
-        // console.log('searchdao 1',titleSearch);
-
         noteModule.find({$text:{$search:titleSearch}},(error,data)=> {
 
             if(error){
-                // console.log('searchdao 2',error);
                 reject({message : 'Internal server error',status : 500});
             }
             else if(!data){
-                // console.log('searchdao 3');
                 reject({message : 'No notes found for this title',status : 200});
             }
             else{
-                // console.log('searchdao 4',data);
                 resolve({message : "Successfull note fetch",status:200,notes:data}); 
             }
         });       

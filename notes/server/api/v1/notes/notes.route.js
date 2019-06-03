@@ -3,7 +3,7 @@ const notesCtrl = require('./notes.controller');
 const auth = require('../../../../../auth/server/api/v1/auth/auth');
 
 //control access using authentication
-router.use(auth.isAuthenticatedUser);
+//router.use(auth.isAuthenticatedUser);
 
 //add notes
 router.post('/:userId',(req,res) => { 
@@ -15,10 +15,21 @@ router.post('/:userId',(req,res) => {
     }); 
 });
 
+//Search Notes by Title
+router.get('/searchNotesByTitle/:title',(req,res) => {  
+
+     let noteTitle = req.params.title;
+     notesCtrl.searchNotesByNoteTitle(noteTitle).then((response) => {
+         res.status(response.status).send(response.notes);
+      }).catch((error) => {
+         res.status(error.status).send(error);
+     }); 
+
+});
+
 
 //get notes by user id
 router.get('/:userId/:userName',(req,res) => {  
-    
     let userId = req.params.userId;
     let userName = req.params.userName;
 
@@ -72,17 +83,9 @@ router.post('/',(req,res) => {
     }); 
 });
 
-//Search Notes by Title
-router.get('/searchNotesByTitle/:title',(req,res) => {  
-  // console.log('search route 1');
-    let noteTitle = req.params.title;
-    // console.log('search route', title);
-    notesCtrl.searchNotesByNoteTitle(noteTitle).then((response) => {
-        res.status(response.status).send(response.notes);
-     }).catch((error) => {
-        res.status(error.status).send(error);
-    }); 
-});
+// router.get('/searchNotesByTitle/',(req,res) => {
+//     res.send('get notes');
+// });
 
 //Add/Remove notes to Favourite 
 router.put('/:noteId',(req,res) => {  

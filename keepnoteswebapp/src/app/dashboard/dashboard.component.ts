@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { AuthenticationService } from './../services/authentication.service';
+import { Component, OnInit } from '@angular/core';
 import { NotesService } from '../services/notes.service';
 
 @Component({
@@ -6,9 +7,14 @@ import { NotesService } from '../services/notes.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
 
-  constructor(private notesService: NotesService) {
+  loggedInUser: string;
+  constructor(private notesService: NotesService, private authService: AuthenticationService) {
     this.notesService.fetchNotesFromServer();
+  }
+
+  ngOnInit() {
+    this.loggedInUser = this.authService.getLoginName();
   }
 }

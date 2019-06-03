@@ -32,7 +32,8 @@ export class NotesService {
     };
 
     const getNotesResponse = this.httpClient.get<Array<Note>>(
-      `http://localhost:7000/api/v1/notes/?userId=${this.authenticationService.getLoginID()}`,
+      // tslint:disable-next-line:max-line-length
+      `http://localhost:7000/api/v1/notes/${this.authenticationService.getLoginID()}/${this.authenticationService.getLoginName()}`,
       httpOptions);
 
     getNotesResponse.subscribe(

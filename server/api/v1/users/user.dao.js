@@ -63,7 +63,7 @@ const registerUser = (userInfo) => {
             }
             else{
                 registeredUser={userInfo:addedUser.username};
-                resolve({message : "Successfull register",status:201,user:registeredUser});
+                resolve({message : "Successfull register.Please click to login",status:201,user:registeredUser});
             }
         });
     });

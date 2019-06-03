@@ -28,3 +28,9 @@
   .note-id {
     color: purple;
   }
+
+  .rembutton{
+    size: 15px;
+    margin-left: 10pt;
+    margin-right: 10pt;
+  }

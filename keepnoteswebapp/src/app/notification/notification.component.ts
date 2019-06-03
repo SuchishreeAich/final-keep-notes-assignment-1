@@ -42,7 +42,6 @@ export class NotificationComponent implements OnInit {
         }
 
       }, error => {
-        console.log('error in enableNotifications. ', error);
       }
     );
 
@@ -60,7 +59,6 @@ export class NotificationComponent implements OnInit {
         }
 
       }, error => {
-        console.log('error in enableRemindersWithSnooze. ', error);
       }
     );
 
@@ -75,7 +73,6 @@ export class NotificationComponent implements OnInit {
           duration: 3000 // Close snackbar
         });
       }, error => {
-        console.log('error in setSnoozeReminder. ', error);
       }
       );
   }

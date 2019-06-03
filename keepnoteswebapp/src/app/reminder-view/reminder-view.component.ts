@@ -138,12 +138,10 @@ export class ReminderViewComponent implements OnInit {
     // Delete the note
     this.reminderSvc.dismissReminder(reminderID).subscribe(
       response => {
-        console.log('resposne after delete', response);
         this.viewAllReminders(false);
         this.socketSvc.enableNotification(response);
       },
       error => {
-        console.log('error after delete', error);
         this.socketSvc.enableNotification(error);
       }
     );

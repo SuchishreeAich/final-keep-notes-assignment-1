@@ -36,6 +36,18 @@ export class AuthenticationService {
     localStorage.removeItem('loginID');
   }
 
+  setLoginName(loginName) {
+    localStorage.setItem('loginName', loginName);
+  }
+
+  getLoginName() {
+    return localStorage.getItem('loginName');
+  }
+
+  removeLoginName() {
+    localStorage.removeItem('loginName');
+  }
+
   isUserAuthenticated(token): Promise<boolean> {
 
 

@@ -17,10 +17,12 @@ router.post('/:userId',(req,res) => {
 
 
 //get notes by user id
-router.get('/',(req,res) => {  
+router.get('/:userId/:userName',(req,res) => {  
     
-    let userId = req.query.userId;
-    notesCtrl.getNotesByUserId(userId).then((response) => {
+    let userId = req.params.userId;
+    let userName = req.params.userName;
+
+    notesCtrl.getNotesByUser(userId,userName).then((response) => {
         res.status(response.status).send(response.notes);
      }).catch((error) => {
         res.status(error.status).send(error);
@@ -87,7 +89,7 @@ router.put('/:noteId',(req,res) => {
     let noteId = req.params.noteId;
     let isFavourite = req.query.isFavourite;
 
-    if(isFavourite){
+    if(isFavourite === true || isFavourite === 'true'){
         notesCtrl.addNotesToFavourite(noteId).then((response) => {
             res.status(response.status).send(response.note);
          }).catch((error) => {

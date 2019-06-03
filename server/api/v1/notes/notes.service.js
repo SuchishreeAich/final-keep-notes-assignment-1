@@ -6,8 +6,8 @@ const addNotes = (userId,data) => {
 }
 
 // get notes by user id
-const getNotesByUserId = (userId) => {
-    return noteDAO.getNotesByUserId(userId);
+const getNotesByUser = (userId,userName) => {
+    return noteDAO.getNotesByUser(userId,userName);
 }
 
 // get notes by note id
@@ -57,7 +57,7 @@ const shareNote = (noteId,sharedUsersArray) => {
 
 module.exports = {
     addNotes,
-    getNotesByUserId,
+    getNotesByUser,
     getNoteByNoteId,
     updateNotes,
     deleteNotes,

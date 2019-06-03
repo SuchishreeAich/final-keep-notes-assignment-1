@@ -34,7 +34,9 @@ export class LoginComponent {
             this.authenticationService.setBearerToken(resp['token']);
             const userItem = resp['user'];
             const loginID = userItem['userId'];
+            const loginName = userItem['userName'];
             this.authenticationService.setLoginID(loginID);
+            this.authenticationService.setLoginName(loginName);
             this.routerService.routeToDashboard();
 
           } else {

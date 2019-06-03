@@ -65,7 +65,6 @@ export class EditNoteViewComponent {
   }
 
   removeFromFavourite() {
-
     const removeFavResponse = this.notesService.removeFromFavourite(this.note);
 
     removeFavResponse.subscribe(

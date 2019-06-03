@@ -40,7 +40,7 @@ export class ReminderService {
     reminderObserver.subscribe(response => {
       this.reminders = response;
       this.remindersSubject.next(this.reminders);
-    }, error => console.log('Error in fetchAllRemindersFromServer.', error));
+    }, error => {});
 
   }
 
@@ -66,7 +66,7 @@ export class ReminderService {
       this.reminders.push(response.notification);
       this.remindersSubject.next(this.reminders);
     },
-      error => console.log('Error in setReminderAt.', error)
+      error => {}
     ));
   }
 
@@ -86,7 +86,7 @@ export class ReminderService {
       this.reminders.push(response.notification);
       this.remindersSubject.next(this.reminders);
     },
-      error => console.log('Error in setReminderAt.', error)
+      error => {}
     ));
   }
 
@@ -112,7 +112,7 @@ export class ReminderService {
       this.reminders.push(response);
       this.remindersSubject.next(this.reminders);
     },
-      error => console.log('Error in snoozeReminder.', error)
+      error => {}
     ));
   }
 
@@ -134,7 +134,7 @@ export class ReminderService {
       this.reminders.push(response);
       this.remindersSubject.next(this.reminders);
     },
-      error => console.log('Error in snoozeReminder.', error)
+      error => {}
     ));
 
   }

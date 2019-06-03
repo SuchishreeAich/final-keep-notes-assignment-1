@@ -31,12 +31,14 @@ const addNotes = (userId,data) => {
     });
 };
 
-const getNotesByUserId = (userId) => {
+const getNotesByUser = (userId,userName) => {
 
-    return new Promise((resolve,reject) => {
-        
-        noteModule.find({'userId' :  userId}, function(err,data){
-            
+    let userIdSearch = `'`+userId+`'`;
+    return new Promise((resolve,reject) => {       
+
+        noteModule.find(
+            {$or: [{'userId' : userId},{'sharedUsers' : userName}]}, 
+            function(err,data){
             if(err){
                 reject({message : 'Internal server error',status : 500});
             }
@@ -142,7 +144,6 @@ const searchNotesByNoteTitle = (noteTitle) => {
 };
 
 const addNotesToFavourite = (noteId) => {
-   
     return new Promise((resolve,reject) => {
 
         let updatedNote = {
@@ -169,7 +170,6 @@ const addNotesToFavourite = (noteId) => {
 };
 
 const removeNotesFromFavourite = (noteId) => {
-   
     return new Promise((resolve,reject) => {
 
         let updatedNote = {
@@ -287,7 +287,7 @@ const shareNote = (noteId,shareUserArray) => {
 
 module.exports = {
     addNotes,
-    getNotesByUserId,
+    getNotesByUser,
     getNoteByNoteId,
     updateNotes,
     deleteNotes,

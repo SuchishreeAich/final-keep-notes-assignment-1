@@ -18,9 +18,12 @@ export class NoteSearchComponent {
   }
 
   onSearch() {
+    // console.log('search', this.title);
     if (!this.title) {
+      // console.log('search1');
       this.notesService.fetchNotesFromServer();
     } else {
+      // console.log('search2');
       this.notesService.fetchNotesByTitle(this.title);
     }
   }

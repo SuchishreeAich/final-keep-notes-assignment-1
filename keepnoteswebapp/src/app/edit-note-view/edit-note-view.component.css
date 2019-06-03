@@ -3,16 +3,23 @@
   }
 
 .edit-note-container{
-  width: 2000px;
+  width: 1000px;
 }
 
 .edit-note-element{
-  padding-right: 5pt;
+  padding-right: 20pt;
+  width: 10vw;
+}
+
+.edit-note-element-group{
+  padding-right: 10pt;
+  width: 10vw;
 }
 
 .edit-note-element-fav{
   padding-right: 5pt;
   width: 5vw;
+  height:5vh;
 }
 
 .keep-c-done-wrapper{
@@ -36,6 +43,6 @@
   align-content: center;
   padding-left: 15pt;
   padding-right: 15pt;
-  margin-left: 300pt;
+  margin-left: 275pt;
   margin-right: 10pt;
 }

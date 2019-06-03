@@ -14,19 +14,19 @@
   </mat-form-field>  
   
   
-  <mat-form-field class='edit-note-element'>
+  <mat-form-field class='edit-note-element-group'>
     <input matInput class='group' name='group' [(ngModel)]="note.group">               
   </mat-form-field>
-  <button mat-icon-button (click)="addToGroup()">
-      <mat-icon color="primary" aria-label="Add to Group">group</mat-icon>
+  <button mat-icon-button  matTooltip="Add to Group" (click)="addToGroup()">
+      <mat-icon color="primary" aria-label="Add to Group">group_add</mat-icon>
   </button>
 
   <!-- Share note-->
   <app-note-share [note]='note'></app-note-share>
 
-  <mat-icon *ngIf="note.isFavourite" matTooltip="Remove from Favourite" color="warn" aria-label="Favourite" 
+  <mat-icon class='edit-note-element-fav' *ngIf="note.isFavourite" matTooltip="Remove from Favourite" color="warn" aria-label="Favourite" 
   aria-hidden="false" (click)="removeFromFavourite()">favorite</mat-icon>
-  <mat-icon *ngIf="!note.isFavourite" matTooltip="Add to Favourite"  color="blank" aria-label="Favourite" 
+  <mat-icon class='edit-note-element-fav' *ngIf="!note.isFavourite" matTooltip="Add to Favourite"  color="blank" aria-label="Favourite" 
   aria-hidden="false" (click)="addToFavourite()" >favorite</mat-icon>
   
 </div>

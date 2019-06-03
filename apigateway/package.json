@@ -1,0 +1,21 @@
+{
+  "name": "apigateway",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./server/bin/www",
+    "test": "mocha ./server/test/**/*.js",
+    "lint": "eslint './server/**/*.js' --ignore-path .eslintignore"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "http-proxy-middleware": "^0.19.1",
+    "log4js": "^4.0.2",
+    "morgan": "^1.9.1"
+  }
+}

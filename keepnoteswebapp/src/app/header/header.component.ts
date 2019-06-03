@@ -20,4 +20,8 @@ export class HeaderComponent {
     this.isNoteView = true;
     this.routerService.routeToNoteView();
   }
+
+  switchToLogout() {
+    this.routerService.routeToLogout();
+  }
 }

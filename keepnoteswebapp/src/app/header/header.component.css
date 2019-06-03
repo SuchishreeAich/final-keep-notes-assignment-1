@@ -9,5 +9,9 @@
 }
 
 .example-spacer {
-  flex: 0.75 0.75 auto;
+  flex: 1 1 auto;
+}
+
+.headerTitle{
+	font-weight: bold;
 }

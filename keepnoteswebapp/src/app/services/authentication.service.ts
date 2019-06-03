@@ -8,7 +8,7 @@ export class AuthenticationService {
   constructor(private httpClient: HttpClient) { }
 
   authenticateUser(data) {
-    return this.httpClient.post('http://localhost:7000/api/v1/users/login', data);
+    return this.httpClient.post('http://localhost:7000/users/login', data);
   }
 
   setBearerToken(token) {
@@ -50,12 +50,11 @@ export class AuthenticationService {
 
   isUserAuthenticated(token): Promise<boolean> {
 
-
     const httpOptions = {
       headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)
     };
 
-    const authResponse = this.httpClient.post('http://localhost:7000/api/v1/auth', {},
+    const authResponse = this.httpClient.post('http://localhost:7000/auth/', {},
       httpOptions).pipe(map(response => response['isAuthenticated']));
 
     return authResponse.toPromise();
@@ -64,11 +63,15 @@ export class AuthenticationService {
 
   getAllRegisteredUsers() {
 
-    return this.httpClient.get<Array<Object>>(`http://localhost:7000/api/v1/users`)
+    return this.httpClient.get<Array<Object>>(`http://localhost:7000/users`)
       .pipe(map(response => response.filter(user => user['userId'] !== this.getLoginID())
         .map(user => user['username'])
       ));
+  }
 
-
+  userLogout() {
+    this.removeBearerToken();
+    this.removeLoginID();
+    this.removeLoginName();
   }
 }

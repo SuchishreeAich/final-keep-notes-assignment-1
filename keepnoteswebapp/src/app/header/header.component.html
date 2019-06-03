@@ -1,7 +1,7 @@
 <mat-toolbar color="primary">
 
 	<mat-toolbar-row>
-		<span>Keep Notes</span>
+		<span class='headerTitle'>Keep Notes</span>
 
 		<span class="example-spacer"></span>
 
@@ -10,7 +10,8 @@
 		<mat-icon *ngIf="!isNoteView" class="example-icon keep-header-content" aria-hidden="false" aria-label="List View" (click)="switchToNoteView()"
 		 matTooltip="List View">list</mat-icon>
 
-		<!-- <mat-icon class="example-icon keep-header-content" aria-hidden="false" aria-label="Example delete icon" (click)="switchToLogout()" matTooltip="Logout">logout</mat-icon> -->
+		<mat-icon class="example-icon keep-header-content" aria-hidden="false" aria-label="Example delete icon" (click)="switchToLogout()" matTooltip="Logout">logout</mat-icon>
+		
 
 	</mat-toolbar-row>
 

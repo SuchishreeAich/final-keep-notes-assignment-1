@@ -20,7 +20,7 @@ export class NotesService {
 
   registerUser(data) {
     return this.httpClient.post
-      (`http://localhost:7000/api/v1/users/register`,
+      (`http://localhost:7000/users/register`,
       data);
   }
 
@@ -33,7 +33,7 @@ export class NotesService {
 
     const getNotesResponse = this.httpClient.get<Array<Note>>(
       // tslint:disable-next-line:max-line-length
-      `http://localhost:7000/api/v1/notes/${this.authenticationService.getLoginID()}/${this.authenticationService.getLoginName()}`,
+      `http://localhost:7000/notes/${this.authenticationService.getLoginID()}/${this.authenticationService.getLoginName()}`,
       httpOptions);
 
     getNotesResponse.subscribe(
@@ -53,10 +53,12 @@ export class NotesService {
         headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)
       };
 
-      const getNotesResponse = this.httpClient.get<Array<Note>>(
-        `http://localhost:7000/api/v1/notes/searchNotesByTitle/${title}`,
-        httpOptions);
+      // console.log('fetchbytitle', title);
+      // tslint:disable-next-line:max-line-length
+      const getNotesResponse = this.httpClient.get<Array<Note>>(`http://localhost:7000/notes/searchNotesByTitle/${title}`, httpOptions);
 
+
+      // console.log('fetchbytitle 2', getNotesResponse);
       getNotesResponse.subscribe(
         (noteList) => {
           this.notes = noteList;
@@ -80,7 +82,7 @@ export class NotesService {
     };
 
     const addNoteResponse = this.httpClient.post<Note>
-      (`http://localhost:7000/api/v1/notes/${this.authenticationService.getLoginID()}`,
+      (`http://localhost:7000/notes/${this.authenticationService.getLoginID()}`,
       note,
       httpOptions);
 
@@ -97,7 +99,7 @@ export class NotesService {
     };
 
     const editNoteResponse = this.httpClient.put<Note>(
-      `http://localhost:7000/api/v1/notes/updateNotes/${note.id}`,
+      `http://localhost:7000/notes/updateNotes/${note.id}`,
       note, httpOptions);
 
     return editNoteResponse.pipe(tap(response => {
@@ -114,7 +116,7 @@ export class NotesService {
     };
 
     const deleteNoteResponse = this.httpClient.delete<Note>(
-      `http://localhost:7000/api/v1/notes/${note.id}`,
+      `http://localhost:7000/notes/${note.id}`,
       httpOptions);
 
     return deleteNoteResponse.pipe(tap(response => {
@@ -131,7 +133,7 @@ export class NotesService {
     };
 
     const removeFromFavResponse = this.httpClient.put<Note>(
-      `http://localhost:7000/api/v1/notes/${note.id}/?isFavourite=false`,
+      `http://localhost:7000/notes/${note.id}/?isFavourite=false`,
       {}, httpOptions);
 
     return removeFromFavResponse.pipe(tap(response => {
@@ -150,7 +152,7 @@ export class NotesService {
       headers: new HttpHeaders().set('Authorization', `Bearer ${bearerToken}`)
     };
     const addToFavResponse = this.httpClient.put<Note>(
-      `http://localhost:7000/api/v1/notes/${note.id}/?isFavourite=true`,
+      `http://localhost:7000/notes/${note.id}/?isFavourite=true`,
       {}, httpOptions);
 
     return addToFavResponse.pipe(tap(response => {
@@ -174,7 +176,7 @@ export class NotesService {
       headers: new HttpHeaders().set('Authorization', `Bearer ${bearerToken}`)
     };
     const addToGroupResponse = this.httpClient.put<Note>(
-      `http://localhost:7000/api/v1/notes/addNoteToGroup/${note.id}/${groupId}`,
+      `http://localhost:7000/notes/addNoteToGroup/${note.id}/${groupId}`,
       {}, httpOptions);
 
     return addToGroupResponse.pipe(tap(response => {
@@ -193,11 +195,8 @@ export class NotesService {
       headers: new HttpHeaders().set('Authorization', `Bearer ${bearerToken}`)
     };
 
-    // const users = this.httpClient.get(`http://localhost:7000/api/v1/users`,
-    //   httpOptions);
-
     const shareNotesResponse = this.httpClient.put<Note>(
-      `http://localhost:7000/api/v1/notes/shareNote/${note.id}`,
+      `http://localhost:7000/notes/shareNote/${note.id}`,
       uselist, httpOptions);
 
     return shareNotesResponse.pipe(tap(response => {

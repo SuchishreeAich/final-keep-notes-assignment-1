@@ -38,7 +38,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { SocketService } from './services/socket.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import {MatDividerModule} from '@angular/material/divider';
-import { MatNativeDateModule } from '@angular/material';
+import { MatNativeDateModule, MatTooltipModule } from '@angular/material';
+import { LogoutComponent } from './logout/logout.component';
 
 
 @NgModule({
@@ -57,7 +58,8 @@ import { MatNativeDateModule } from '@angular/material';
     NoteSearchComponent,
     NoteShareComponent,
     NotificationComponent,
-    ReminderViewComponent
+    ReminderViewComponent,
+    LogoutComponent
   ],
   imports: [
     AppRoutingModule,
@@ -72,6 +74,7 @@ import { MatNativeDateModule } from '@angular/material';
     MatExpansionModule,
     MatIconModule,
     MatCardModule,
+    MatTooltipModule,
     MatListModule,
     MatButtonModule,
     MatDialogModule,

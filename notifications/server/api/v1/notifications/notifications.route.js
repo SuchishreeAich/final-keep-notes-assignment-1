@@ -2,7 +2,7 @@ const router = require('express').Router();
 const ctrl = require('./notifications.controller');
 const auth = require('../../../../../auth/server/api/v1/auth/auth');
 
-router.use(auth.isAuthenticatedUser); //Notes will be accessible only if User is authenticated
+// router.use(auth.isAuthenticatedUser); //Notes will be accessible only if User is authenticated
 
 router.post('/', ctrl.notifyUsers);
 router.get('/reminders/', ctrl.getReminders);

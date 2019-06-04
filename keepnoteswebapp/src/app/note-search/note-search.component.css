@@ -1,4 +1,4 @@
-.note-search-panel {
+/* .note-search-panel {
 	width: 55vw;
 	margin: auto;
     margin-top: 1em;
@@ -20,4 +20,18 @@
 	border-width: 1.5pt;
 	border-color: purple;
 	border-radius: 0.25em;
+} */
+
+
+
+.note-search-panel {
+	width: 55vw;
+	margin: auto;
+    margin-top: 1em;
+}
+
+.note-search-panel-wrapper{
+	display: flex;
+	flex-direction: column;
+	font-size: 15px;	
 }

@@ -4,6 +4,7 @@ const userCtrl = require('./user.controller');
 
 //login users
 router.post('/login',(req,res) => {   
+    console.log('login 1');
     userCtrl.loginUser(req.body).then((response) => {
         res.status(response.status).send(response);
     }).catch((error) => {

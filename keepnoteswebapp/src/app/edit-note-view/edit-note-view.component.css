@@ -7,16 +7,17 @@
 }
 
 .edit-note-element{
-  padding-right: 20pt;
+  padding-right: 25pt;
   width: 10vw;
 }
 
 .edit-note-element-group{
-  padding-right: 10pt;
+  padding-right: 8pt;
   width: 10vw;
 }
 
 .edit-note-element-fav{
+  padding-left: 5pt;
   padding-right: 5pt;
   width: 5vw;
   height:5vh;
@@ -29,20 +30,12 @@
   align-content: center;
 }
 
-.edit-note-button{
-  align-self:center;
-  align-content: center;
-  padding-left: 15pt;
-  padding-right: 15pt;
+.edit-note-button{  
   margin-left: 10pt;
   margin-right: 10pt;
 }
 
 .edit-note-button-update{
-  align-self:center;
-  align-content: center;
-  padding-left: 15pt;
-  padding-right: 15pt;
-  margin-left: 275pt;
+  margin-left: 240pt;
   margin-right: 10pt;
 }

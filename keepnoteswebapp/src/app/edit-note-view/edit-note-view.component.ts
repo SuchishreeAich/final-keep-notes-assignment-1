@@ -117,5 +117,9 @@ export class EditNoteViewComponent {
     );
   }
 
+  cancel() {
+    this.matDialogRef.close();
+  }
+
 
 }

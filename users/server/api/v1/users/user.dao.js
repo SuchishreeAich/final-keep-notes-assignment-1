@@ -1,7 +1,7 @@
 const userModule = require('./user.entity');
 const uuidv1 = require('uuid/v1');
 const {authConfig}  = require('../../../config').appConfig;
-let auth = require('../../../../../auth/server/api/v1/auth/auth');
+let auth = require('./auth');
 
 const loginUser = (userInfo) => {
 

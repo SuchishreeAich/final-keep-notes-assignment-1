@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const notesCtrl = require('./notes.controller');
-const auth = require('../../../../../auth/server/api/v1/auth/auth');
+// const auth = require('../../../../../auth/server/api/v1/auth/auth');
 
 //control access using authentication
 // router.use(auth.isAuthenticatedUser);

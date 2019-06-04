@@ -1,0 +1,90 @@
+version: '3'
+
+services:
+  docker_keepnoteswebapp:
+    image: 'suchishreeaich/keep-note-keepnoteswebapp:latest'
+    build: ./keepnoteswebapp
+    container_name: docker_keepnoteswebapp
+    ports:
+      - '4200:4200'
+    networks:
+      - docker_network
+    restart: on-failure
+    depends_on:
+      - docker_apigateway
+  docker_apigateway:
+    image: 'suchishreeaich/keep-note-apigateway:latest'
+    build: ./apigateway
+    container_name: docker_apigateway
+    ports:
+      - '7000:7000'
+    networks:
+      - docker_network
+    environment:
+      - MONGO_URL=mongodb://docker_mongodb:27017/keepDB
+      - USER_URL=http://docker_users:4001
+      - NOTES_URL=http://docker_notes:4002
+      - NOTIFICATIONS_URL=http://docker_notifications:4003
+    restart: on-failure
+    depends_on:
+      - docker_users
+      - docker_notes
+      - docker_notifications
+  docker_notes:
+    image: 'suchishreeaich/keep-note-notes:latest'
+    build: ./notes
+    container_name: docker_notes
+    ports:
+      - '4002:4002'
+    networks:
+      - docker_network
+    environment:
+      - MONGO_URL=mongodb://docker_mongodb:27017/keepDB
+      - USER_URL=http://docker_users:4001/api/v1/auth
+    restart: on-failure
+    depends_on:
+      - docker_mongodb
+      - docker_users
+  docker_notifications:
+    image: 'suchishreeaich/keep-note-notifications:latest'
+    build: ./notifications
+    container_name: docker_notifications
+    ports:
+      - '4003:4003'
+    networks:
+      - docker_network
+    environment:
+      - MONGO_URL=mongodb://docker_mongodb:27017/keepDB
+      - USER_URL=http://docker_users:4001/api/v1/auth
+      - SLEEPDURATION=10000
+    restart: on-failure
+    depends_on:
+      - docker_users
+      - docker_mongodb
+  docker_users:
+    image: 'suchishreeaich/keep-note-users:latest'
+    build: ./users
+    container_name: docker_users
+    ports:
+      - '4001:4001'
+    networks:
+      - docker_network
+    environment:
+      - MONGO_URL=mongodb://docker_mongodb:27017/keepDB
+    restart: on-failure
+    depends_on:
+      - docker_mongodb
+  docker_mongodb:
+    image: 'mongo:4.1.1-xenial'
+    container_name: docker_mongodb
+    expose:
+      - 27017
+    ports:
+      - '27017:27017'
+    networks:
+      - docker_network
+
+networks:
+  docker_network:
+    driver: bridge
+    #driver: host

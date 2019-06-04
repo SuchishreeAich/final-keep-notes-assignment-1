@@ -21,7 +21,7 @@ router.post('/register',(req,res) => {
 });
 
 //get all registered users
-router.get('/',(req,res) =>{
+router.get('/',(req,res) =>{   
     userCtrl.getAllRegisteredUsers().then((response) => {
         res.status(response.status).send(response.users);
     }).catch((error) => {

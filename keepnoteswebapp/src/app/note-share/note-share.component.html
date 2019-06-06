@@ -1,5 +1,5 @@
 
-  <mat-form-field>
+  <mat-form-field class='sharedClass'>
     <mat-select name="sharedUsers" class="sharedUsers" [(ngModel)]="selectedUser" multiple>
       <mat-option *ngFor="let sharedUser of sharedUsers" [value]="sharedUser">{{ sharedUser }}</mat-option>
     </mat-select>

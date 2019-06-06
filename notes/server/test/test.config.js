@@ -6,8 +6,10 @@ const {authConfig} = require('../config/appConfig');
 const USER_ID_1 = uuidv1();
 const USER_ID_2 = uuidv1();
 const USER_ID_3 = uuidv1();
+const NOTE_ID_1 = uuidv1();
 
 const NOTE_1={
+    id: NOTE_ID_1,
     title: 'note 1',
     text: 'text 1',
     state: 'started'

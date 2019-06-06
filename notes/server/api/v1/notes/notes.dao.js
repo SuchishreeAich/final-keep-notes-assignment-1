@@ -6,7 +6,7 @@ const path = require('path');
 const fs = require('fs');
 const { Transform } = require('stream');
 const JSONStream = require('JSONStream');
-const notesFile = path.resolve(__dirname, '../../../../', 'mock_notes.json');
+const notesFile = path.resolve(__dirname, '../../../', 'mock_notes.json');
 
 const addNotes = (userId,data) => {
     return new Promise((resolve,reject) => {

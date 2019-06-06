@@ -87,13 +87,14 @@ describe('Testing to login user', function()
     //Response body should have a key as message which will hold value as 'You are not registered user'
     // status code = 403
     // response body will hold an object with message key
+    config.USER_1.username = 'newName';
     request(app)
    .post(`/api/v1/users/login`)
    .send(config.USER_2)
    .expect(403)
    .then((response)=>{
      expect(response.body).to.have.property('message');
-     expect(response.body.message).to.equal('You are not registered user');
+     expect(response.body.message).to.equal('You are not registered user.Please click below to register');
      done();
   });
 });

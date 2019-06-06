@@ -1,14 +1,16 @@
-import { AppPage } from './app.po';
+import { AppPage } from './page-objects/app.po';
 
-describe('workspace-project App', () => {
+describe('home page', () => {
   let page: AppPage;
 
   beforeEach(() => {
     page = new AppPage();
   });
 
-  it('should display welcome message', () => {
+  it('should check header presentation on home page', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to keepnoteswebapp!');
+    expect(page.isHeaderPresent()).toBeTruthy('<mat-toolbar> should exist in header.component.html');
   });
+
+
 });

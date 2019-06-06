@@ -13,6 +13,7 @@ export class LoginComponent {
   password = new FormControl();
 
   submitMessage: string;
+  sucessMessage: string;
 
   constructor(private routerService: RouterService,
     private authenticationService: AuthenticationService) { }
@@ -56,5 +57,6 @@ export class LoginComponent {
 
   register() {
     this.routerService.routeToRegister();
+    this.sucessMessage = 'Registration successful.Please login';
   }
 }

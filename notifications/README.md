@@ -13,4 +13,4 @@ Micro service using Node.js, MongoDB & socket.io for sending Notifications.
 5. Push to Docker hub Repository  - ```docker push suchishreeaich/keep-note-notifications:latest```
 
 ### API Spec
-Swagger UI - http://localhost:3003/api-docs
+Swagger UI - http://localhost:4003/api-docs

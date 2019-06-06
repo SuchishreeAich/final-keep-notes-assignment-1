@@ -22,7 +22,7 @@ export class LogoutComponent implements OnInit {
         status: 200,
         message: 'Logout successfull.'
       } ;
-      this.socketService.enableNotification(resp);
+      // this.socketService.enableNotification(resp);
       this.authenticationService.userLogout();
       this.socketService.disconnect();
       this.routerService.routeToLogin();

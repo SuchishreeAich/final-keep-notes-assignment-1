@@ -26,7 +26,7 @@ RUN npm install
 COPY . .
 
 # Port to connect to application - used in appConfig.js
-EXPOSE ${PORT}
+EXPOSE 7000:7000
 
 # Define the command to run your app which defines your runtime, like 'npm start'
 CMD [ "npm", "start" ]

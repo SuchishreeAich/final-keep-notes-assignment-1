@@ -22,11 +22,13 @@ services:
       - docker_network
     environment:
       - MONGO_URL=mongodb://docker_mongodb:27017/keepDB
-      - USER_URL=http://docker_users:4001
+      - USERS_URL=http://docker_users:4001
       - NOTES_URL=http://docker_notes:4002
       - NOTIFICATIONS_URL=http://docker_notifications:4003
+      - AUTH_URL=http://docker_auth:4004
     restart: on-failure
     depends_on:
+      - docker_auth
       - docker_users
       - docker_notes
       - docker_notifications
@@ -40,10 +42,10 @@ services:
       - docker_network
     environment:
       - MONGO_URL=mongodb://docker_mongodb:27017/keepDB
-      - USER_URL=http://docker_users:4001/api/v1/auth
     restart: on-failure
     depends_on:
       - docker_mongodb
+      - docker_auth
       - docker_users
   docker_notifications:
     image: 'suchishreeaich/keep-note-notifications:latest'
@@ -55,11 +57,24 @@ services:
       - docker_network
     environment:
       - MONGO_URL=mongodb://docker_mongodb:27017/keepDB
-      - USER_URL=http://docker_users:4001/api/v1/auth
       - SLEEPDURATION=10000
     restart: on-failure
     depends_on:
       - docker_users
+      - docker_auth
+      - docker_mongodb
+  docker_auth:
+    image: 'suchishreeaich/keep-note-auth:latest'
+    build: ./auth
+    container_name: docker_auth
+    ports:
+      - '4004:4004'
+    networks:
+      - docker_network
+    environment:
+      - MONGO_URL=mongodb://docker_mongodb:27017/keepDB
+    restart: on-failure
+    depends_on:
       - docker_mongodb
   docker_users:
     image: 'suchishreeaich/keep-note-users:latest'

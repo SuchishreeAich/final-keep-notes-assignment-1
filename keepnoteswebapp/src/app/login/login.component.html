@@ -5,6 +5,10 @@
     <button mat-raised-button color='primary' *ngIf="submitMessage" (click)="register()" >Register</button>
 </div>
 
+<div class='success-register-wrapper'>
+    <button mat-raised-button color='primary' *ngIf="sucessMessage">{{sucessMessage}}</button>
+</div>
+
 
 <div class='login-container'>
     <mat-card>

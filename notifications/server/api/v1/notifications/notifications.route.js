@@ -4,6 +4,10 @@ const ctrl = require('./notifications.controller');
 
 // router.use(auth.isAuthenticatedUser); //Notes will be accessible only if User is authenticated
 
+// router.get('/',(req,res)=> {
+//     res.send('notificationdockerok');
+// });
+
 router.post('/', ctrl.notifyUsers);
 router.get('/reminders/', ctrl.getReminders);
 router.post('/reminders/', ctrl.addReminder);

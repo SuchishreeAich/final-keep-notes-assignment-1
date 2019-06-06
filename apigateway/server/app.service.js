@@ -45,7 +45,7 @@ const getAuthenticationProxy = () => {
 
 const getNotificationProxy = () => {
     return proxy({
-        target: config.NOTIFICATION_URL,
+        target: config.NOTIFICATIONS_URL,
         changeOrigin: true,
         pathRewrite: {
             '^/notifications/': '/api/v1/notifications/'
@@ -55,7 +55,7 @@ const getNotificationProxy = () => {
 
 const getSocketProxy = () => {
     return proxy({
-        target: config.NOTIFICATION_URL,
+        target: config.NOTIFICATIONS_URL,
         changeOrigin: true,
         ws: true
     })
@@ -69,21 +69,31 @@ const setAPIproxy = (app) => {
 
     //notes proxy
     app.use('/notes/', getNoteProxy());
-
+    // app.get('/notes/', (req, res) => {
+    //     res.send('notesapiok');
+    // });
     //users proxy
     app.use('/users/', getUsersProxy());
-
+    // app.get('/users/', (req, res) => {
+    //     res.send('usersapiok');
+    // });
     //notifications proxy
     app.use('/notifications/', getNotificationProxy());
-
+    // app.get('/notifications/', (req, res) => {
+    //     res.send('notificationsapiok');
+    // });
     //authentication proxy
     app.use('/auth/', getAuthenticationProxy());
     // app.get('/auth/', (req, res) => {
-    //     res.send('ok');
-    // })
+    //     res.send('authapiok');
+    // });
 
     //socket proxy
     app.use('/', getSocketProxy());
+
+    // app.get('/', (req,res)=> {
+    //     res.send('apigatewayok');
+    // });
 
     //error
     app.use((request, response) => {

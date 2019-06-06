@@ -1,0 +1,184 @@
+openapi: 3.0.1
+info:
+  title: Keep Notes - User Micro Service
+  version: 1.0.0
+  description: >-
+    This micro service is used for user registration/login/fetch all registered users etc. It is authenticated
+    using 'Bearer' token.
+servers:
+- url: 'http://localhost:4001/api/v1/users'
+paths:
+  /register:
+    post:
+      tags:
+      - users
+      summary: User Registration
+      requestBody:
+        description: Details for registration like username, password and email
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        201:
+          description: Successful user registration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegisterResponse'
+        403:
+          description: Invalid request data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /login:
+    post:
+      tags:
+      - users
+      summary: User Login
+      requestBody:
+        description: Details for Login like username & password
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserLogin'
+        required: true
+      responses:
+        200:
+          description: Successful user login
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        403:
+          description: Invalid request data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /:
+    get:
+      tags:
+      - users
+      summary: Fetch all registered users
+      responses:
+        201:
+          description: Fetched the userId,username & emailid for all users
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetUserResponse'
+        403:
+          description: Invalid request data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  schemas:
+    User:
+      required:
+      - password
+      - username
+      - emailId
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        emailId:
+          type: string
+    UserLogin:
+      required:
+      - password
+      - username
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    GetUserResponse:
+      required:
+      - message
+      - status
+      - users
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          type: string
+        users:
+          type: array
+          items:
+            type: string
+    RegisterResponse:
+      required:
+      - message
+      - status
+      - userInfo
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          type: string
+        userInfo:
+          type: object
+          properties:
+            userName:
+              type: string          
+    LoginResponse:
+      required:
+      - token
+      - user
+      - status
+      type: object
+      properties:
+        token:
+          type: string
+        user:
+          type: object
+          properties:
+            userName:
+              type: string
+            userId:
+              type: string
+        status:
+          type: string
+    Error:
+      required:
+      - message
+      - status
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          type: string
+    
+    
+        

@@ -101,20 +101,25 @@ export class EditNoteViewComponent {
 
 
   addToGroup() {
-    const addGroupResponse = this.notesService.addToGroup(this.note, this.note.group);
 
-    addGroupResponse.subscribe(
-      (response) => {
-        this.matDialogRef.close();
-      },
-      (err) => {
-        if (err.error) {
-          this.errMessage = err.error.message;
-        } else {
-          this.errMessage = err.message;
+    if (this.note.group) {
+      const addGroupResponse = this.notesService.addToGroup(this.note, this.note.group);
+
+      addGroupResponse.subscribe(
+        (response) => {
+          this.matDialogRef.close();
+        },
+        (err) => {
+          if (err.error) {
+            this.errMessage = err.error.message;
+          } else {
+            this.errMessage = err.message;
+          }
         }
-      }
-    );
+      );
+    } else {
+      this.errMessage = 'Please mention a group to add';
+    }
   }
 
   cancel() {

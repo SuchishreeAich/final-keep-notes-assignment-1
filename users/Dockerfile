@@ -5,6 +5,7 @@ FROM node:10.15.3-alpine
 LABEL Maintainer="Suchishree.Aich"
 
 # Set environment variables - like API urls/Port etc.
+#EXPOSE 4001:4001
 ENV PORT 4001
 #ENV MONGO_URL mongodb://192.168.31.106:27017/keep
 #ENV MONGO_URL mongodb://172.31.37.234:27017/keep
@@ -26,7 +27,7 @@ RUN npm install
 COPY . .
 
 # Port to connect to application - used in appConfig.js
-EXPOSE ${PORT}
+EXPOSE 4001:4001
 
 # Define the command to run your app which defines your runtime, like 'npm start'
 CMD [ "npm", "start" ]

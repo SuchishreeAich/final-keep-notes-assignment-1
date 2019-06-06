@@ -1,0 +1,449 @@
+openapi: 3.0.1
+info:
+  title: Keep Notes - Notes Micro Service
+  version: 1.0.0
+  description: >-
+    This micro service is used creating/saving/modifying and all other
+    operations related to notes. It uses 'Bearer' Token for User authentication
+servers:
+  - url: http://localhost:4002/api/v1/notes
+paths:
+  /:
+    get:
+      summary: Filters and fetches a note for a user
+      tags:
+        - notes and users
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: Users ID to filter notes
+        - in: path
+          name: userName
+          schema:
+            type: string
+          required: true
+          description: User Names to filter notes
+      responses:
+        '200':
+          description: Succesfully fetched notes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessNotes'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+  '/:userId':                  
+    post:
+      summary: Creates a note for a user
+      tags:
+        - notes and users
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: userId
+          schema:
+            type: string
+          required: true
+          description: User ID to create notes
+      requestBody:
+        description: Details to create a Note
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Note'
+        required: true
+      responses:
+        '201':
+          description: Succesfully created notes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddNote'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'       
+  /shareNote:   
+    put:
+      summary: Shares note as 'notifications' to other users
+      tags:
+        - notes and users
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: noteId
+          schema:
+            type: string
+          required: true
+          description: Note ID to be shared
+      requestBody:
+        description: users to be shared to
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ShareNotesInput'
+        required: true
+      responses:
+        '200':
+          description: Succesfully shared notes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShareNotes'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+  /deleteNote:   
+    delete:
+      summary: Delete note
+      tags:
+        - notes
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: noteId
+          schema:
+            type: string
+          required: true
+          description: Note ID to be deleted      
+      responses:
+        '200':
+          description: Succesfully deleted notes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateNote'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+  /favourite:   
+    put:
+      summary: Add or remove as favourite
+      tags:
+        - notes
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: noteId
+          schema:
+            type: string
+          required: true
+          description: Note ID to be marked 
+        - in: query
+          name: isFas=vourite
+          schema:
+            type: boolean
+          required: true
+          description: flag to be used  
+      responses:
+        '200':
+          description: Succesfully marked favourite
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FavouriteNote'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'                                     
+  /addNoteToGroup:
+    summary: Adds notes to a Group
+    put:
+      summary: Adds note to a specific Group
+      tags:
+        - notes
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: noteId
+          schema:
+            type: string
+          required: true
+          description: Note ID to be added to group
+        - in: path
+          name: groupId
+          schema:
+            type: string
+          required: true
+          description: Group Id to be added to
+      responses:
+        '200':
+          description: Succesfully added note to Group
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupNote'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'       
+  '/:noteId':
+    summary: Fetch a Note using id
+    get:
+      summary: Retrieves Data for a NoteID
+      tags:
+        - notes
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: noteId
+          schema:
+            type: string
+          required: true
+          description: Note ID to get details
+      responses:
+        '200':
+          description: Succesfully retrieved notes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessNote'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /searchNotesByTitle:
+    summary: Fetch a Note using title
+    get:
+      summary: Retrieves Data for a Note title
+      tags:
+        - notes
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: title
+          schema:
+            type: string
+          required: true
+          description: Note Title to get details
+      responses:
+        '200':
+          description: Succesfully retrieved notes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessNote'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /updateNotes:
+    summary: Update a note using id                  
+    put:
+      summary: Update Note for a given Note ID
+      tags:
+        - notes
+      security:
+        - BearerAuth: []
+      parameters:
+        - in: path
+          name: noteId
+          schema:
+            type: string
+          required: true
+          description: Note ID to update
+      requestBody:
+        description: Note details to update
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Note'
+        required: true
+      responses:
+        '200':
+          description: Succesfully updated notes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateNote'
+        '500':
+          description: Unexpected Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'       
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Note:
+      required:
+        - id
+        - title
+        - text
+        - state
+        - userId
+        - createdOn
+        - modifiedOn
+        - isFavourite
+        - group
+        - sharedUsers
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        text:
+          type: string
+        state:
+          type: string
+          enum:
+            - started
+            - not-started
+            - completed
+        userId:
+          type: string
+        createdOn:
+          type: string
+          format: date-time
+        modifiedOn:
+          type: string
+          format: date-time
+        sharedUsers:
+          type: array
+          items:
+            type: string
+        isFavourite:
+          type: boolean
+        group:
+          type: string
+    SuccessNote:
+      required:
+        - message
+        - status
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          type: string
+        note:
+          $ref: '#/components/schemas/Note'
+        data:
+          type: object
+    SuccessNotes:
+      required:
+        - message
+        - status
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          type: string
+        notes:
+          type: array
+          items: 
+            $ref: '#/components/schemas/Note'
+        data:
+          type: object
+    Error:
+      required:
+        - message
+        - status
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          type: string
+    ShareNotes:
+      type: object
+      properties:
+        noteId:
+          type: string    
+        sharedUsers:
+          type: array
+          items:
+            type: string
+    ShareNotesInput:
+      type: object
+      properties:   
+        sharedUsers:
+          type: array
+          items:
+            type: string
+    GroupNote:
+      type: object
+      properties:
+        noteId:
+          type: string         
+        groupName:
+          type: string
+    NotesIDs:
+      type: object
+      properties:
+        noteId:
+          type: array
+          items:
+            type: string
+    UpdateNote:
+      type: object
+      properties:
+        noteId:
+          type: string         
+        title:
+          type: string
+        text:
+          type: string
+    FavouriteNote:
+      type: object
+      properties:
+        noteId:
+          type: string         
+        title:
+          type: string
+        text:
+          type: string
+        favourite:
+          type: boolean
+    AddNote:   
+      type: object
+      properties:
+        noteId:
+          type: string         
+        title:
+          type: string
+        text:
+          type: string
+        userId:
+          type: string
+        state:
+          type: string
+    

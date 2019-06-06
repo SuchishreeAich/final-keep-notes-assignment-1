@@ -102,7 +102,6 @@ export class NotesService {
       note, httpOptions);
 
     return editNoteResponse.pipe(tap(response => {
-      this.notes.push(response);
       this.notesSubject.next(this.notes);
     }));
   }
@@ -115,7 +114,7 @@ export class NotesService {
     };
 
     const deleteNoteResponse = this.httpClient.delete<Note>(
-      `http://localhost:7000/notes/${note.id}`,
+      `http://localhost:7000/notes/deleteNote/${note.id}`,
       httpOptions);
 
     return deleteNoteResponse.pipe(tap(response => {
@@ -132,7 +131,7 @@ export class NotesService {
     };
 
     const removeFromFavResponse = this.httpClient.put<Note>(
-      `http://localhost:7000/notes/${note.id}/?isFavourite=false`,
+      `http://localhost:7000/notes/favourite/${note.id}/?isFavourite=false`,
       {}, httpOptions);
 
     return removeFromFavResponse.pipe(tap(response => {
@@ -151,7 +150,7 @@ export class NotesService {
       headers: new HttpHeaders().set('Authorization', `Bearer ${bearerToken}`)
     };
     const addToFavResponse = this.httpClient.put<Note>(
-      `http://localhost:7000/notes/${note.id}/?isFavourite=true`,
+      `http://localhost:7000/notes/favourite/${note.id}/?isFavourite=true`,
       {}, httpOptions);
 
     return addToFavResponse.pipe(tap(response => {

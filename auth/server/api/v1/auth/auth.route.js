@@ -5,7 +5,7 @@ const controller = require('./auth');
 //login users
 
 // router.get('/', (req, res) => {
-//     res.send('auth is ok');
+//     res.send('authdockerok');
 // });
 
 router.post('/', controller.isAuthenticatedUserEndPoint);

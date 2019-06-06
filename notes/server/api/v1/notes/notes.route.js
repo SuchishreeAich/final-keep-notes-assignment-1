@@ -15,6 +15,10 @@ router.post('/:userId',(req,res) => {
     }); 
 });
 
+// router.get('/',(req,res) => {
+//     res.send('notesdockerok');
+// });
+
 //Search Notes by Title
 router.get('/searchNotesByTitle/:title',(req,res) => {  
 
@@ -63,7 +67,7 @@ router.put('/updateNotes/:noteId',(req,res) => {
 });
 
 //Delete Notes
-router.delete('/:noteId',(req,res) => {  
+router.delete('/deleteNote/:noteId',(req,res) => {  
     
     let noteId = req.params.noteId;
     notesCtrl.deleteNotes(noteId).then((response) => {
@@ -88,7 +92,7 @@ router.post('/',(req,res) => {
 // });
 
 //Add/Remove notes to Favourite 
-router.put('/:noteId',(req,res) => {  
+router.put('/favourite/:noteId',(req,res) => {  
     
     let noteId = req.params.noteId;
     let isFavourite = req.query.isFavourite;

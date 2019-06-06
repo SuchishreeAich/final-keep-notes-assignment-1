@@ -27,7 +27,7 @@ RUN npm install -g @angular/cli
 COPY . .
 
 # Port to connect to application - used in appConfig.js
-EXPOSE ${PORT}
+EXPOSE 4200:4200
 
 # Build Angular
 RUN npm run build -- --output-path=./dist/out

@@ -128,7 +128,12 @@ const searchNotesByNoteTitle = (noteTitle) => {
 
         let titleSearch = `'`+noteTitle+`'`;
 
-        noteModule.find({$text:{$search:titleSearch}},(error,data)=> {
+        let searchCriteria = {
+            title: { $regex: noteTitle, $options: 'i' }, //regex search
+            // userId: userid
+        }
+
+        noteModule.find(searchCriteria,(error,data)=> {
 
             if(error){
                 reject({message : 'Internal server error',status : 500});

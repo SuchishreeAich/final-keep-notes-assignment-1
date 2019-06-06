@@ -14,4 +14,4 @@ Micro service using Node.js & MongoDB for user login/register etc.
 5. Push to Docker hub Repository  - ```docker push suchishreeaich/keep-note-users:latest```
 
 ### API Spec
-#Swagger UI - http://localhost:3000/api-docs
+Swagger UI - http://localhost:4001/api-docs

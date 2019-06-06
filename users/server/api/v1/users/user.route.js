@@ -27,6 +27,7 @@ router.get('/',(req,res) =>{
     }).catch((error) => {
         res.status(error.status).send(error);
     });
+    //res.send('userdockerok');
 });
 
 module.exports = router;

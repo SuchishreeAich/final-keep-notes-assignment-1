@@ -4,6 +4,7 @@ const { dbConfig } = require('../config').appConfig;
 
 function createMongoConnection(){
     mongoose.connect(dbConfig.mongoUrl,{useNewUrlParser:true});
+    mongoose.set('useCreateIndex', true);
     mongoose.set('useFindAndModify', false);
 }
 

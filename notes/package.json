@@ -21,9 +21,12 @@
     "express": "~4.15.5",
     "jsonwebtoken": "^8.4.0",
     "mongoose": "^5.0.10",
+    "path": "^0.12.7",
     "socket.io": "^2.1.1",
     "stream-to-mongo-db": "^1.6.0",
-    "uuid": "^3.3.2"
+    "swagger-ui-express": "^4.0.6",
+    "uuid": "^3.3.2",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "@types/socket.io-client": "^1.4.32",

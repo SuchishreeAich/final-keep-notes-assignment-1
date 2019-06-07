@@ -12,13 +12,12 @@
 }
 
 .edit-note-element-group{
-  padding-right: 8pt;
-  width: 10vw;
+  padding-right: 3pt;
+  width: 8vw;
 }
 
 .edit-note-element-fav{
-  padding-left: 10pt;
-  padding-right: 5pt;
+  padding-left: 5pt;
   width: 5vw;
   height:5vh;
 }

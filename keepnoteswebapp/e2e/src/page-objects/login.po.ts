@@ -58,7 +58,7 @@ export class LoginPage {
   }
   // get username and password details
   getMockLoginDetail(): any {
-    const loginDetail: any = { username: 'harry', password : 'potter'};
+    const loginDetail: any = { username: 'abc', password : 'abc'};
     return loginDetail;
   }
   // set username and password input box values

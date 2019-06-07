@@ -17,9 +17,10 @@
   <mat-form-field class='edit-note-element-group'>
     <input matInput class='group' name='group' [(ngModel)]="note.group">               
   </mat-form-field>
-  <button mat-icon-button  matTooltip="Add to Group" (click)="addToGroup()">
+  <button mat-icon-button class='edit-note-element-group-button'  matTooltip="Add to Group" (click)="addToGroup()">
       <mat-icon color="primary" aria-label="Add to Group">group_add</mat-icon>
   </button>
+  
 
   <!-- Share note-->
   <app-note-share [note]='note'></app-note-share>

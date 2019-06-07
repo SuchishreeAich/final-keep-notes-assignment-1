@@ -56,7 +56,7 @@ export class NoteViewPage {
   }
   // get button
   getDoneButton(): ElementFinder {
-    return this.getAppComponent().element(by.buttonText('Done'));
+    return this.getAppComponent().element(by.buttonText('Add Note'));
   }
   // check button is present or not
   isDoneButtonPresent(): promise.Promise<boolean> {
@@ -89,26 +89,29 @@ export class NoteViewPage {
   }
 
   // get all notes
-  getAllNotes(): ElementArrayFinder {
-    return element.all(by.css('mat-card'));
-  }
+  // getAllNotes(): ElementArrayFinder {
+  //   return element.all(by.css('mat-card'));
+  // }
   // get last note
-  getLastNote(): ElementFinder {
-    return this.getAllNotes().last();
-  }
+  // getLastNote(): ElementFinder {
+  //   return this.getAllNotes().last();
+  // }
 
   // get last note
-  getLastNoteTitle(): promise.Promise<string> {
-    return this.getLastNote().element(by.name('editTitle')).getAttribute('value');
-  }
+  // getLastNoteTitle(): promise.Promise<string> {
+  //   return this.getLastNote().element(by.name('editTitle')).getAttribute('value');
+  // }
   // click on note
-  clickLastNote(): promise.Promise<void> {
-    return this.getLastNote().element(by.css('mat-icon')).click();
-  }
+  // clickLastNote(): promise.Promise<void> {
+  //   return this.getLastNote().element(by.css('mat-icon')).click();
+  // }
 
   // get title input box
   getEditTitleInputBox(): ElementFinder {
-    return element(by.name('editTitle'));
+    return this.getEditNoteViewComponent().element(by.name('editTitle'));
+    // return this.getEditNoteViewComponent()(by.name('editTitle'));
+    // return this.getAppComponent().element(by.name('editTitle'));
+    // return element(by.name('editTitle'));
   }
   // check title input box is present or not
   isEditTitleInputBoxPresent(): promise.Promise<boolean> {
@@ -116,7 +119,9 @@ export class NoteViewPage {
   }
   // get text input box
   getEditTextInputBox(): ElementFinder {
-    return element(by.name('editText'));
+    // return this.getEditNoteViewComponent().element(by.name('editText'));
+    return this.getAppComponent().element(by.name('editTitle'));
+    // return element(by.name('editText'));
   }
   // check text input box is present or not
   isEditTextInputBoxPresent(): promise.Promise<boolean> {
@@ -124,7 +129,8 @@ export class NoteViewPage {
   }
   // get status select box
   getEditStatusInputBox(): ElementFinder {
-    return element(by.name('editStatus'));
+    return this.getEditNoteViewComponent().element(by.name('editStatus'));
+    // return element(by.name('editStatus'));
   }
   // check text input box is present or not
   isEditStatusInputBoxPresent(): promise.Promise<boolean> {
@@ -132,7 +138,7 @@ export class NoteViewPage {
   }
   // get button
   getSaveButton(): ElementFinder {
-    return this.getEditNoteViewComponent().element(by.buttonText('Save'));
+    return this.getEditNoteViewComponent().element(by.buttonText('Update Note'));
   }
   // check button is present or not
   isSaveButtonPresent(): promise.Promise<boolean> {

@@ -34,6 +34,7 @@ export class RegisterComponent {
       registerResult.subscribe(
         resp => {
           if (resp) {
+            console.log('routelogin 4');
             this.routerService.routeToLogin();
           } else {
             this.submitMessage = 'Unsuccessful registration';

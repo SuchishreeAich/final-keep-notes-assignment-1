@@ -23,6 +23,7 @@ const loginUser = (userInfo) => {
 
                 auth.signToken(payload,authConfig.jwtSecret,'10h',(error,generatedToken) => {
 
+                    console.log('user login token',generatedToken);
                     if(error){
                         reject({message : 'Passwords is incorrect',status : 403});
                     }

@@ -35,6 +35,7 @@ export class LoginComponent {
         resp => {
           if (resp) {
             this.authenticationService.setBearerToken(resp['token']);
+            console.log('token in login.ts - ', resp['token']);
             const userItem = resp['user'];
             const loginID = userItem['userId'];
             const loginName = userItem['userName'];

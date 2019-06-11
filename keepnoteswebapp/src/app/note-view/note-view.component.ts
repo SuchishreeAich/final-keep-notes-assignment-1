@@ -20,7 +20,7 @@ export class NoteViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    // console.log('User', this.authService.getLoginName());
+    console.log('User', this.authService.getLoginName());
     const getNotesResponse = this.notesService.getNotes();
     getNotesResponse.subscribe(
       (response) => {

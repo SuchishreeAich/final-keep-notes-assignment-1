@@ -24,7 +24,7 @@ export class CanActivateRouteGuard implements CanActivate {
       }
       return resp;
     }).catch(err => {
-      console.log('routelogin 2');
+      console.log('routelogin 2', err);
       this.routerService.routeToLogin();
       return false;
     });

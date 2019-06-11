@@ -6,6 +6,11 @@ export class NoteViewPage {
     browser.waitForAngularEnabled(false);
     return browser.get('/dashboard/view/noteview');
   }
+
+  navigateToEditView() {
+    browser.waitForAngularEnabled(false);
+    return browser.get('/dashboard/note/:noteId/edit');
+  }
   // to pause browser
   pauseBrowser(port) {
     browser.pause(port);
@@ -14,9 +19,21 @@ export class NoteViewPage {
   getAppComponent(): ElementFinder {
     return element(by.tagName('app-root'));
   }
+
+  getNoteComponent(): ElementFinder {
+    return element(by.tagName('app-note'));
+  }
   // app component
   getEditNoteViewComponent(): ElementFinder {
     return element(by.tagName('app-edit-note-view'));
+  }
+
+  isEditNoteViewPresent(): promise.Promise<boolean> {
+    return this.getEditNoteViewComponent().isPresent();
+  }
+
+  isEditNoteViewVisible(): promise.Promise<boolean> {
+    return this.getEditNoteViewComponent().isDisplayed();
   }
 
   getNoteTakerComponent(): ElementFinder {
@@ -67,7 +84,7 @@ export class NoteViewPage {
   }
   // get button
   getDoneButton(): ElementFinder {
-    return this.getAppComponent().element(by.buttonText('Done'));
+    return this.getAppComponent().element(by.buttonText('Add Note'));
   }
   // check button is present or not
   isDoneButtonPresent(): promise.Promise<boolean> {
@@ -82,13 +99,13 @@ export class NoteViewPage {
     let inputTitle, inputText;
     inputTitle = this.getTitleInputBox().getAttribute('value');
     inputText = this.getTextInputBox().getAttribute('value');
-    return Promise.all([inputTitle, inputText]).then( (values) => {
+    return Promise.all([inputTitle, inputText]).then((values) => {
       return values;
     });
   }
   // get note data
   getMockNote(): any {
-    const note: any = { title: 'Read Angular 5 blog', text : 'Shall do at 6 pm'};
+    const note: any = { title: 'Read Angular 5 blog', text: 'Shall do at 6 pm' };
     return note;
   }
   // set input fileds values with mock data
@@ -101,20 +118,49 @@ export class NoteViewPage {
 
   // get all notes
   getAllNotes(): ElementArrayFinder {
-    return element.all(by.css('mat-card'));
+    return element.all(by.className('keep-card-note'));
+    // return this.getNoteComponent().element(by.css('mat-card'));
   }
   // get last note
   getLastNote(): ElementFinder {
     return this.getAllNotes().last();
   }
 
+  lengthNotes(): promise.Promise<number> {
+    return this.getAllNotes().count();
+  }
+
+  isAllNotesPresent(): promise.Promise<boolean> {
+    return this.getAllNotes().isPresent();
+  }
+
+  isLastNotePresent(): promise.Promise<boolean> {
+    return this.getLastNote().isPresent();
+  }
+
   // get last note
   getLastNoteTitle(): promise.Promise<string> {
-    return this.getLastNote().element(by.name('editTitle')).getAttribute('value');
+    // return this.getLastNote().element(by.name('editTitle')).getAttribute('value');
+    //  return this.getAllNotes().last().element(by.css('mat-card-title')).getText();
+    return this.getLastNote().element(by.css('mat-card-title')).getText();
   }
+
+  getlasttitle(): promise.Promise<string> {
+    // return this.getLastNote().element(by.name('editTitle')).getAttribute('value');
+    return this.getLastNote().getText();
+  }
+
+  getLastElement(): ElementFinder {
+    return this.getLastNote().element(by.css('mat-card'));
+  }
+
+  isLastElementpresent(): promise.Promise<boolean> {
+    return this.getLastElement().isPresent();
+  }
+
   // click on note
   clickLastNote(): promise.Promise<void> {
-    return this.getLastNote().element(by.css('mat-icon')).click();
+    return browser.actions().mouseMove(this.getLastNote()).click().perform();
   }
 
   // get title input box
@@ -127,7 +173,8 @@ export class NoteViewPage {
   }
   // get text input box
   getEditTextInputBox(): ElementFinder {
-    return element(by.name('editText'));
+    // return element(by.name('editText'));
+    return this.getEditNoteViewComponent().element(by.name('editText'));
   }
   // check text input box is present or not
   isEditTextInputBoxPresent(): promise.Promise<boolean> {
@@ -143,7 +190,8 @@ export class NoteViewPage {
   }
   // get button
   getSaveButton(): ElementFinder {
-    return this.getEditNoteViewComponent().element(by.buttonText('Save'));
+    // return this.getEditNoteViewComponent().element(by.buttonText('Update Note'));
+    return element(by.buttonText('Update Note'));
   }
   // check button is present or not
   isSaveButtonPresent(): promise.Promise<boolean> {
@@ -159,13 +207,13 @@ export class NoteViewPage {
     inputEditTitle = this.getEditTitleInputBox().getAttribute('value');
     inputEditText = this.getEditTextInputBox().getAttribute('value');
     inputEditStatus = this.getEditStatusInputBox().getAttribute('ng-reflect-model');
-    return Promise.all([inputEditTitle, inputEditText, inputEditStatus]).then( (values) => {
+    return Promise.all([inputEditTitle, inputEditText, inputEditStatus]).then((values) => {
       return values;
     });
   }
   // get note data
   getEditMockNote(): any {
-    const note: any = { title: 'Read Angular 1 blog', text : 'Shall do at 10.30 pm', state: 'not-started'};
+    const note: any = { title: 'Read Angular 1 blog', text: 'Shall do at 10.30 pm', state: 'not-started' };
     return note;
   }
   // set input fileds values with mock data

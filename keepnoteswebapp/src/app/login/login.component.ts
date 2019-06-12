@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { RouterService } from '../services/router.service';
 import { AuthenticationService } from '../services/authentication.service';
+import { NotesService } from '../services/notes.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnChanges {
   username = new FormControl();
   password = new FormControl();
 
@@ -16,7 +17,11 @@ export class LoginComponent {
   sucessMessage: string;
 
   constructor(private routerService: RouterService,
-    private authenticationService: AuthenticationService) { }
+    private authenticationService: AuthenticationService, private noteService: NotesService) { }
+
+  ngOnChanges() {
+   // console.log('register success', this.noteService.registerSuccess);
+  }
 
   loginSubmit() {
     const creds = {
@@ -24,33 +29,27 @@ export class LoginComponent {
       'password': this.password.value,
     };
 
-    console.log('loginSubmit', this.username.value);
 
     if (!this.username.value || !this.password.value) {
       this.submitMessage = 'Username and Password required';
     } else {
       const authenticationResult = this.authenticationService.authenticateUser(creds);
-      console.log('loginSubmit 2');
       authenticationResult.subscribe(
         resp => {
           if (resp) {
             this.authenticationService.setBearerToken(resp['token']);
-            console.log('token in login.ts - ', resp['token']);
             const userItem = resp['user'];
             const loginID = userItem['userId'];
             const loginName = userItem['userName'];
             this.authenticationService.setLoginID(loginID);
             this.authenticationService.setLoginName(loginName);
-            console.log('loginSubmit 3');
             this.routerService.routeToDashboard();
 
           } else {
-            console.log('loginSubmit 4');
             this.submitMessage = 'Unauthorized';
           }
         },
         err => {
-          console.log('loginSubmit 5');
           if (err.error) {
             this.submitMessage = err.error.message;
           } else {

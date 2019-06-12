@@ -2,6 +2,7 @@ import { NotesService } from './../services/notes.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { RouterService } from '../services/router.service';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-register',
@@ -16,8 +17,11 @@ export class RegisterComponent {
 
   submitMessage: string;
 
+  // componentLogin: LoginComponent;
+
   constructor(private notesService: NotesService,
-  private routerService: RouterService) { }
+  private routerService: RouterService) {
+  }
 
   registerSubmit() {
 
@@ -34,9 +38,12 @@ export class RegisterComponent {
       registerResult.subscribe(
         resp => {
           if (resp) {
-            console.log('routelogin 4');
+            this.notesService.registerSuccess = true;
+            // this.componentLogin.sucessMessage = 'Registration successful.Please login';
             this.routerService.routeToLogin();
           } else {
+            this.notesService.registerSuccess = false;
+            // this.componentLogin.sucessMessage = '';
             this.submitMessage = 'Unsuccessful registration';
           }
         },

@@ -4,7 +4,6 @@ export class LoginPage {
   // navigate to login page
   navigateToLogin() {
     browser.waitForAngularEnabled(false);
-    console.log('loginnavigate');
     return browser.get('/login');
   }
   // get current URL
@@ -14,7 +13,6 @@ export class LoginPage {
  // navigate to  note view dashboard
   navigateToNoteView() {
     browser.waitForAngularEnabled(false);
-    // console.log('noteviewnavigate');
     return browser.get('/dashboard/view/noteview');
   }
   // get login component

@@ -25,7 +25,6 @@ export class LogoutComponent implements OnInit {
       // this.socketService.enableNotification(resp);
       this.authenticationService.userLogout();
       this.socketService.disconnect();
-      console.log('routelogin 3');
       this.routerService.routeToLogin();
     }, 1000);
 

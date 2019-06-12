@@ -160,7 +160,8 @@ export class NoteViewPage {
 
   // click on note
   clickLastNote(): promise.Promise<void> {
-    return browser.actions().mouseMove(this.getLastNote()).click().perform();
+    // return browser.actions().mouseMove(this.getLastNote()).click().perform();
+    return this.getLastNote().click();
   }
 
   // get title input box

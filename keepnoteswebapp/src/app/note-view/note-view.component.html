@@ -1,6 +1,6 @@
-<!-- <div class="noteSpan">
+<div class="noteSpan">
 	<span *ngIf="notesPresent" >Click on any note to access:-</span>
-</div> -->
+</div>
 <div id="note-view-section" class="keep-c-note-container"> 
 	<!-- Include the notes collection with each note rendered as a separate NoteComponent -->
 	<app-note [note]='note' *ngFor='let note of notes'></app-note>

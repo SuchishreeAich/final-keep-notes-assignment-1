@@ -12,10 +12,12 @@ export class NotesService {
 
   notes: Array<Note>;
   notesSubject: BehaviorSubject<Array<Note>>;
+  registerSuccess: boolean;
 
   constructor(private httpClient: HttpClient, private authenticationService: AuthenticationService) {
     this.notes = [];
     this.notesSubject = new BehaviorSubject(this.notes);
+    this.registerSuccess = false;
   }
 
   registerUser(data) {

@@ -1,6 +1,8 @@
 <!-- Label to display any error messages -->
 <label class='error-message'>{{ submitMessage }}</label>
 
+<label class='success-message' *ngIf="this.noteService.registerSuccess">Registration successful.Please click below to login</label>
+
 <div class='register-wrapper'>
     <button mat-raised-button color='primary' *ngIf="submitMessage" (click)="register()" >Register</button>
 </div>

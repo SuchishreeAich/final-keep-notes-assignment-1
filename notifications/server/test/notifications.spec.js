@@ -19,7 +19,6 @@ describe('Testing to add a notification', function()
     .expect(201)
     .then((response)=>{
       NOTIFICATION_ID = response.body.notification.notificationID;
-      //console.log('notification',NOTIFICATION_ID);
       expect(response.body).to.have.property('notification');
       done();
     });
@@ -42,7 +41,6 @@ describe('Testing to get a notification', function()
     .expect(200)
     .then((response)=>{
       //NOTIFICATION_ID = response.body.notification.notificationID;
-      //console.log('notification',NOTIFICATION_ID);
       expect(response.body).to.have.property('notifications');
       done();
     });

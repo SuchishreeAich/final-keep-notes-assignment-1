@@ -41,20 +41,15 @@ describe('login page', () => {
     expect(page.getLoginInputBoxesDefaultValues()).toEqual(newNoteValues, 'Should be able to set values for username and password');
     page.clickSubmitButton();
     // browser.driver.sleep(20000);
-    // console.log('login button clicked');
     page.navigateToNoteView();
     // browser.driver.sleep(20000);
-    // console.log('navigateToNoteView', page.getCurrentURL());
     page.getCurrentURL().then((url) => {
       if (url.indexOf('login') > -1) {
         newNoteValues = page.addLoginValues();
         page.clickSubmitButton();
         page.navigateToNoteView();
-       // console.log('inside login url');
-        // console.log('current url inside login', page.getCurrentURL());
         expect(page.getCurrentURL()).toContain('dashboard/view/noteview', 'Should navigate to note view dashboard');
       } else {
-        // console.log('outside login url');
         expect(page.getCurrentURL()).toContain('dashboard/view/noteview', 'Should navigate to note view dashboard');
       }
     });

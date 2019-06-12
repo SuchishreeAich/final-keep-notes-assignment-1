@@ -19,12 +19,10 @@ export class CanActivateRouteGuard implements CanActivate {
     const isAuthenticated = this.authenticationService.isUserAuthenticated(bearerToken);
     isAuthenticated.then(resp => {
       if (!resp) {
-        console.log('routelogin 1');
         this.routerService.routeToLogin();
       }
       return resp;
     }).catch(err => {
-      console.log('routelogin 2', err);
       this.routerService.routeToLogin();
       return false;
     });

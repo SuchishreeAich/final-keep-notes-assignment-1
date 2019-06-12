@@ -50,14 +50,12 @@ export class AuthenticationService {
 
   isUserAuthenticated(token): Promise<boolean> {
 
-    console.log('token in isuserAuth : ', token);
     const httpOptions = {
       headers: new HttpHeaders().set('Authorization', `Bearer ${token}`)
     };
 
     const authResponse = this.httpClient.post('http://localhost:7000/auth/', {},
       httpOptions).pipe(map(response => {
-        console.log('isAuthenticated response :', response['isAuthenticated']);
         return response['isAuthenticated'];
       }));
 

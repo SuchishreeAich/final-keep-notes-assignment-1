@@ -32,8 +32,6 @@ const addNotes = (userId,data) => {
 };
 
 const getNotesByUser = (userId,userName) => {
-
-    console.log('get notes by ', userName);
     
     return new Promise((resolve,reject) => {       
 

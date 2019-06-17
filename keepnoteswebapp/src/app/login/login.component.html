@@ -1,15 +1,15 @@
 <!-- Label to display any error messages -->
 <label class='error-message'>{{ submitMessage }}</label>
 
-<label class='success-message' *ngIf="this.noteService.registerSuccess">Registration successful.Please click below to login</label>
+<!-- <label class='success-message' *ngIf="this.noteService.registerSuccess">Registration successful.Please click below to login</label> -->
 
 <div class='register-wrapper'>
     <button mat-raised-button color='primary' *ngIf="submitMessage" (click)="register()" >Register</button>
 </div>
 
-<div class='success-register-wrapper'>
+<!-- <div class='success-register-wrapper'>
     <button mat-raised-button color='primary' *ngIf="sucessMessage">{{sucessMessage}}</button>
-</div>
+</div> -->
 
 
 <div class='login-container'>

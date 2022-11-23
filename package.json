@@ -21,7 +21,7 @@
     "express": "~4.15.5",
     "jsonwebtoken": "^8.4.0",
     "mongoose": "^5.0.10",
-    "socket.io": "^2.1.1",
+    "socket.io": "^2.5.0",
     "stream-to-mongo-db": "^1.6.0",
     "uuid": "^3.3.2"
   },
